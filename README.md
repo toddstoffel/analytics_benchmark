@@ -19,7 +19,7 @@ Replace this section
 ## Run The Project
 ### Data Load Times
 |Engine                |Time                 |
-|:---------------------|--------------------:|
+|:---------------------|:--------------------|
 |MariaDB InnoDB        |22 min               |
 |MariaDB ColumnStore   |69 sec               |
 |PingCap TiDB          |12 min 36 sec        |
