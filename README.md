@@ -19,20 +19,6 @@ Replace this section
 ### Run The Project
 Replace this section
 
-## Sample Queries
-The following sample queries are provided in the [queries directory](/queries/):
-
-1.   **1.sql / 1.js** : Provides a report of flight count, market share percentage, cancelled flights percentage, and diverted flights percentage by airline for 2020.
-2.   **2.sql / 2.js** : Provides a report of the delay types by airline by year.
-3.   **3.sql / 3.js** : Provides a report of the volume and average arrival delay for California based airports by airline in 2020.
-4.   **4.sql / 4.js** : Provides a report of the average and maximum delay by month and hour in the day for bay area airports in 2020.
-5.   **5.sql / 5.js** : Provides a report of the average and maximum delay by day and hour for bay area airports in November 2020.
-6.   **6.sql / 6.js** :
-7.   **7.sql / 7.js** :
-8.   **8.sql / 8.js** :
-9.   **9.sql / 9.js** :
-10.  **10.sql / 10.js** :
-
 ### Data Load Times
 |Engine                |Time                 |
 |:---------------------|--------------------:|
