@@ -1,0 +1,44 @@
+[lightning]
+level = "error"
+file = "tidb-lightning.log"
+max-error = 0
+meta-schema-name = "lightning_metadata"
+table-concurrency = 12
+index-concurrency = 6
+
+[tikv-importer]
+backend = "local"
+sorted-kv-dir = "/tmp/tidb_sort"
+parallel-import = true
+
+[mydumper]
+data-source-dir = "../data/csv"
+batch-import-ratio = 1.0
+read-block-size = 2097152
+
+[mydumper.csv]
+separator = ','
+delimiter = '"'
+terminator = ''
+header = false
+not-null = false
+null = '\N'
+backslash-escape = true
+trim-last-separator = false
+
+[tidb]
+host = "127.0.0.1"
+port = 4000
+user = "root"
+password = ""
+status-port = 10080
+pd-addr = "127.0.0.1:2379"
+log-level = "error"
+build-stats-concurrency = 50
+distsql-scan-concurrency = 300
+index-serial-scan-concurrency = 40
+checksum-table-concurrency = 40
+
+[checkpoint]
+enable = true
+keep-after-success = false

@@ -1,0 +1,3 @@
+## TURN THIS INTO A SCRIPT
+
+tiup tidb-lightning -config tidb-lightning.toml

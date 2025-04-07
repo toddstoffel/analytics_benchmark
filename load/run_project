@@ -1,0 +1,72 @@
+#!/usr/bin/env bash
+
+set -euo pipefail # Enable strict mode
+
+MARIADB=$(which mariadb)
+CPIMPORT=$(which cpimport)
+SCHEMA_DIR=$(readlink -f ./schema)
+NAME1='airports'
+NAME2='airlines'
+NAME3='flights'
+GREEN='\033[0;32m'
+RED='\033[0;31m'
+NC='\033[0m'
+
+if $MARIADB <"${SCHEMA_DIR}"/columnstore_schema.sql &>/dev/null; then
+    echo -e "Creating 'columnstore_bts' schema..." "${GREEN}done${NC}"
+else
+    echo -e "Creating 'columnstore_bts' schema..." "${RED}fail${NC}"
+    exit 1
+fi
+
+# Downloading data from MariaDB Sample Data S3 Bucket
+echo -e "\nDownloading '${NAME3}.csv' from MariaDB S3 bucket..."
+if [[ -f "${SCHEMA_DIR}/${NAME3}.csv" ]]; then
+    if [[ $(wc -l <"${SCHEMA_DIR}/${NAME3}.csv") -eq 38083735 ]]; then
+        echo -e "${GREEN}'${NAME3}.csv' already exists and has the correct number of lines.${NC}"
+    fi
+else
+    if curl -o "${SCHEMA_DIR}/${NAME3}.csv" -# "https://sample-columnstore-data.s3.us-west-2.amazonaws.com/${NAME3}.csv"; then
+        echo -e "Downloaded '${NAME3}.csv' ... ${GREEN}done${NC}\n"
+    else
+        echo -e "Downloading '${NAME3}.csv' ... ${RED}failed${NC}"
+        exit 1
+    fi
+fi
+
+# Loading data into ColumnStore tables.
+for CSV_FILE in ${NAME1} ${NAME2} ${NAME3}; do
+    echo -e "\nLoading '${CSV_FILE}.csv' with cpimport ..."
+    if ! $CPIMPORT -m 1 -s ',' -E '"' columnstore_bts "${CSV_FILE}" -l "${SCHEMA_DIR}/${CSV_FILE}.csv"; then
+        echo -e "loading '${CSV_FILE}.csv' ... ${RED}fail${NC}"
+        exit 1
+    fi
+done
+
+printf "\nDo you want to include an InnoDB comparison schema? (Y/N) "
+read -r COMPARE
+
+if [[ $COMPARE == [yY] ]]; then
+    if $MARIADB <"${SCHEMA_DIR}"/innodb_schema.sql &>/dev/null; then
+        echo -e "\nCreating 'innodb_bts' schema..." "${GREEN}done${NC}\n"
+        for CSV_FILE in "${NAME1}" "${NAME2}" "${NAME3}"; do
+            echo -e "\nLoading '${CSV_FILE}.csv' with LDI ..."
+            if ! $MARIADB --database="innodb_bts" --init-command="SET sql_mode=''" -vvv -e \
+                "LOAD DATA INFILE '${SCHEMA_DIR}/${CSV_FILE}.csv' 
+                 INTO TABLE ${CSV_FILE}
+                 FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '\"'
+                 LINES TERMINATED BY '\n';" | awk '!/Bye/'; then
+                echo -e "loading '${CSV_FILE}.csv' ... ${RED}fail${NC}"
+                exit 1
+            fi
+        done
+    else
+        echo -e "Creating 'innodb_bts' schema..." "${RED}fail${NC}"
+        exit 1
+    fi
+elif [[ $COMPARE == [nN] ]]; then
+    exit 0
+else
+    echo -e "Invalid input. Please enter Y or N.\n"
+    exit 1
+fi
