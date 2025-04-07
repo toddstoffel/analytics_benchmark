@@ -18,7 +18,7 @@ conn = mysql.connector.connect(**db_config)
 cursor = conn.cursor(buffered=True)  # Use a buffered cursor
 
 # Folder containing SQL files
-queries_folder = "sql"
+queries_folder = "queries/sql"
 
 # Get list of SQL files and sort them numerically
 sql_files = sorted(
