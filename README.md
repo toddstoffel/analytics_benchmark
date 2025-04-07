@@ -28,8 +28,8 @@ Replace this section
 |MongoDB               |4 min 51 sec         |
 
 ### Query Times
-|Query |InnoDB               |        ColumnStore  |TiDB                 |Doris                |StarRocks            |MongoDB              |
-|:----:|:--------------------|:--------------------|:-------------------:|:-------------------:|:-------------------:|:-------------------:|
+|Query |InnoDB               |ColumnStore          |TiDB                 |Doris                |StarRocks            |MongoDB              |
+|:----:|:--------------------|:--------------------|:--------------------|:--------------------|:--------------------|:--------------------|
 |1     |1 min 57 sec         |0.46 sec             |1.15 sec             |0.18 sec             |0.22 sec             |15.02 sec            |
 |2     |4 min 14 sec         |1.52 sec             |18.82 sec            |0.72 sec             |0.74 sec             |20.87 sec            |
 |3     |27 sec               |0.21 sec             |0.77 sec             |0.13 sec             |0.17 sec             |0.29 sec             |
