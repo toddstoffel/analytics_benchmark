@@ -17,8 +17,6 @@ Replace this section
 Replace this section
 
 ## Run The Project
-Replace this section
-
 ### Data Load Times
 |Engine                |Time                 |
 |:---------------------|--------------------:|
