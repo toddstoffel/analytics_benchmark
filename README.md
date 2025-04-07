@@ -38,7 +38,7 @@ Replace this section
 
 ### Disk Usage
 |Database System       |Size                 |
-|:---------------------|--------------------:|
+|:---------------------|:--------------------|
 |MariaDB InnoDB        |15GB                 |
 |MariaDB ColumnStore   |2GB                  |
 |Apache Doris          |N/A                  |
