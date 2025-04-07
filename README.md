@@ -2,12 +2,12 @@
 ## Description 
 This simple data set uses the [on time performance](https://www.transtats.bts.gov/homepage.asp) dataset from the *Bureau of Transportation Statistics (BTS)* for US based commercial airline flights. This includes the following 3 tables:
 
-### CSV Files
+#### CSV Files
 *   **airlines**: Dimension table for airlines (30 records)
 *   **airports**: Dimension table for airports (400 records)
 *   **flights**: Fact table for airline departure data (38,083,735 records)
 
-### BSON File
+#### BSON File
 *   **flight_data**: Full flights data set with airlines and airports embedded in BSON format (38,083,735 records)
 
 ## Prerequisite
@@ -16,7 +16,7 @@ Replace this section
 ## Quick Start
 Replace this section
 
-### Run The Project
+## Run The Project
 Replace this section
 
 ### Data Load Times
