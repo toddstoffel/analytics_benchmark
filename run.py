@@ -5,9 +5,9 @@ import time
 # Database connection details
 db_config = {
     "host": "127.0.0.1",
-    "port": 3307,
-    "user": "admin",
-    "password": "C0lumnStore!",
+    "port": 4000,
+    "user": "root",
+    "password": "",
     "charset": "utf8mb4",
     "collation": "utf8mb4_general_ci",
     "database": "bts"

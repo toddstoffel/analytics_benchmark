@@ -62,6 +62,9 @@ if __name__ == "__main__":
     bucket_url = "https://bts-flights-data.s3.us-west-2.amazonaws.com/"
     local_dir = "s3/"
     
+    # Ensure the local directory exists
+    os.makedirs(local_dir, exist_ok=True)
+    
     file_type = input("Enter the file type to download (csv or bson): ").strip().lower()
     if file_type in ['csv', 'bson']:
         list_and_download_files(bucket_url, local_dir, file_type)

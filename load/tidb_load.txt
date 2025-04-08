@@ -1,3 +1,7 @@
 ## TURN THIS INTO A SCRIPT
 
 tiup tidb-lightning -config tidb-lightning.toml
+
+ALTER TABLE bts.flights SET TIFLASH REPLICA 1;
+
+SELECT * FROM information_schema.tiflash_replica WHERE TABLE_SCHEMA = 'bts';
