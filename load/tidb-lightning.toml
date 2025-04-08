@@ -3,20 +3,19 @@ level = "info"
 file = "tidb-lightning.log"
 max-error = 0
 meta-schema-name = "lightning_metadata"
-table-concurrency = 16                     # Increased for parallel table imports
-index-concurrency = 8                      # Raised for faster index creation
-region-concurrency = 8                     # Adjusted for better region processing
-io-concurrency = 8                         # Boosted I/O operations for speed
+table-concurrency = 16
+index-concurrency = 8
+region-concurrency = 8
+io-concurrency = 8
 
 [tikv-importer]
 backend = "local"
-sorted-kv-dir = "/tmp/tidb_sort"           # Updated to use faster disk storage
-parallel-import = true                     # Ensures parallel imports for better performance
+sorted-kv-dir = "/tmp/tidb_sort"
 
 [mydumper]
 data-source-dir = "../s3"
-batch-import-ratio = 1.2                   # Slightly increased for larger import batches
-read-block-size = 4194304                  # Increased to 4 MiB for better block reading efficiency
+batch-import-ratio = 1.2
+read-block-size = 4194304
 
 [mydumper.csv]
 separator = ','
@@ -36,10 +35,10 @@ password = ""
 status-port = 10080
 pd-addr = "127.0.0.1:2379"
 log-level = "error"
-build-stats-concurrency = 80               # Boosted for faster stats building
-distsql-scan-concurrency = 400             # Increased for efficient distributed scans
-index-serial-scan-concurrency = 80         # Raised to handle high indexing workloads
-checksum-table-concurrency = 80            # Improved for faster table checksum computation
+build-stats-concurrency = 80
+distsql-scan-concurrency = 400
+index-serial-scan-concurrency = 80
+checksum-table-concurrency = 80
 
 [checkpoint]
 enable = true
