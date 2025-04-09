@@ -5,7 +5,7 @@ import time
 # Database connection details
 db_config = {
     "host": "127.0.0.1",
-    "port": 4000,
+    "port": 9030,
     "user": "root",
     "password": "",
     "charset": "utf8mb4",
