@@ -40,13 +40,3 @@ Replace this section
 |8     |1 min                |**Error**            |0.47 sec             |0.14 sec             |0.10 sec             |13.59 sec            |
 |9     |1 min 19 sec         |13.18 sec            |3.57 sec             |0.64 sec             |0.46 sec             |57.15 sec            |
 |10    |10 min 48 sec        |2.70 sec             |0.48 sec             |0.14 sec             |0.10 sec             |13.44 sec            |
-
-### Disk Usage
-|Database System       |Size                 |
-|:---------------------|:--------------------|
-|MariaDB InnoDB        |15GB                 |
-|MariaDB ColumnStore   |2GB                  |
-|Apache Doris          |N/A                  |
-|PingCap TiDB          |N/A                  |
-|StarRocks             |N/A                  |
-|MongoDB               |N/A                  |
