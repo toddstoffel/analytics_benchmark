@@ -35,7 +35,7 @@ Replace this section
 |3     |27 sec               |0.29 sec             |0.17 sec             |0.12 sec             |0.10 sec             |0.29 sec             |
 |4     |28 sec               |0.10 sec             |0.07 sec             |0.03 sec             |0.04 sec             |0.05 sec             |
 |5     |1 min 29 sec         |0.99 sec             |0.35 sec             |0.08 sec             |0.10 sec             |1.15 sec             |
-|6     |1 min 15 sec         |13.81 sec            |4.00 sec             |0.90 sec             |0.77 sec             |1 min 43.41 sec      |
+|6     |1 min 15 sec         |13.81 sec            |4.00 sec             |0.90 sec             |0.77 sec             |1 min 43 sec         |
 |7     |1 min 15 sec         |12.98 sec            |3.52 sec             |0.67 sec             |0.57 sec             |56.83 sec            |
 |8     |1 min                |**Error**            |0.47 sec             |0.14 sec             |0.10 sec             |13.59 sec            |
 |9     |1 min 19 sec         |13.18 sec            |3.57 sec             |0.64 sec             |0.46 sec             |57.15 sec            |
