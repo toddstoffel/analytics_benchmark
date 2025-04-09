@@ -1,5 +1,4 @@
-db = db.getSiblingDB("bts");
-db.getCollection("flight_data").aggregate(
+db.flight_data.aggregate(
     [
         {
             "$match" : {
