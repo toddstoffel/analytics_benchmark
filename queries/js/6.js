@@ -1,10 +1,5 @@
 db.flight_data.aggregate([
     {
-        "$match": {
-            "fl_date": { "$ne": null }
-        }
-    },
-    {
         "$group": {
             "_id": { 
                 "airline": "$carrier.name", 
