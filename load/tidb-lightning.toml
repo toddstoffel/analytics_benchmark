@@ -13,7 +13,7 @@ backend = "local"
 sorted-kv-dir = "/tmp/tidb_sort"
 
 [mydumper]
-data-source-dir = "../s3"
+data-source-dir = "../csv"
 batch-import-ratio = 1.2
 read-block-size = 4194304
 
