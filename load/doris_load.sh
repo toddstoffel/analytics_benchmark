@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 curl -v --location-trusted -u root \
     -H "column_separator:," \
     -H "columns:iata_code,airline" \
