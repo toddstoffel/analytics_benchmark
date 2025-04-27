@@ -10,8 +10,8 @@ services:
       doris_net:
         ipv4_address: 172.16.238.10
     ports:
-      - "0.0.0.0:9030:9030"  # Expose port 9030 on the host
-      - "0.0.0.0:8030:8030"  # Expose port 8030 on the host
+      - "0.0.0.0:9030:9030"
+      - "0.0.0.0:8030:8030"
     restart: unless-stopped
 
   be:
@@ -27,7 +27,7 @@ services:
       doris_net:
         ipv4_address: 172.16.238.11
     ports:
-      - "0.0.0.0:8040:8040"  # Expose port 8040 on the host
+      - "0.0.0.0:8040:8040"
     restart: unless-stopped
 
 networks:
