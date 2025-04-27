@@ -6,14 +6,14 @@ curl -v --location-trusted -u root \
     -H "columns:iata_code,airline" \
     -H "Expect: 100-continue" \
     -T bts.airlines.csv \
-    -XPUT http://127.0.0.1:8030/api/bts/airlines/_stream_load
+    -XPUT http://127.0.0.1:8040/api/bts/airlines/_stream_load
 
 curl -v --location-trusted -u root \
     -H "column_separator:," \
     -H "columns:iata_code,airport,city,state,country,latitude,longitude" \
     -H "Expect: 100-continue" \
     -T bts.airports.csv \
-    -XPUT http://127.0.0.1:8030/api/bts/airports/_stream_load
+    -XPUT http://127.0.0.1:8040/api/bts/airports/_stream_load
 
 curl -v --location-trusted -u root \
     -H "column_separator:," \
@@ -22,4 +22,4 @@ curl -v --location-trusted -u root \
     -H "enclose:\"" \
     -H "Expect: 100-continue" \
     -T bts.flights.csv \
-    -XPUT http://127.0.0.1:8030/api/bts/flights/_stream_load
+    -XPUT http://127.0.0.1:8040/api/bts/flights/_stream_load
