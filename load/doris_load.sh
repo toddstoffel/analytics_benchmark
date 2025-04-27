@@ -1,6 +1,3 @@
-# This is not working from the host yet. Has to be run from inside container.
-
-
 curl -v --location-trusted -u root \
     -H "column_separator:," \
     -H "columns:iata_code,airline" \
