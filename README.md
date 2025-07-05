@@ -141,4 +141,4 @@ Before running the analytics benchmark, ensure you have the following installed 
 |10    |2.70 sec             |0.48 sec             |0.14 sec             |0.10 sec             |
 
 ### Notes
-- **MariaDB ColumnStore** was the only database engine that failed to complete all benchmark queries, encountering errors on queries 1 and 8. Despite being designed for analytical workloads, it was unable to handle certain complex query patterns in this benchmark
+*MariaDB ColumnStore was the only database engine that failed to complete all benchmark queries, encountering errors on queries 1 and 8. Despite being designed for analytical workloads, it was unable to handle certain complex query patterns in this benchmark.*
