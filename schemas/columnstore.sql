@@ -1,3 +1,10 @@
+UNINSTALL PLUGIN cracklib_password_check;
+DROP USER IF EXISTS 'root'@'%';
+CREATE USER 'root'@'%' IDENTIFIED BY '';
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+INSTALL PLUGIN cracklib_password_check SONAME 'cracklib_password_check.so';
+
 DROP DATABASE IF EXISTS `bts`;
 
 CREATE DATABASE `bts`;

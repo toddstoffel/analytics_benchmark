@@ -12,7 +12,7 @@ services:
     environment:
       PM1: mcs1
     ports:
-      - 3306:3306
+      - 9030:3306
 
 volumes:
   data1:

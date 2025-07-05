@@ -105,7 +105,7 @@ Before running the analytics benchmark, ensure you have the following installed 
 ### MariaDB ColumnStore
 1. **Start MariaDB ColumnStore:**
    ```bash
-   docker run -p 3306:3306 -itd --name columnstore -e MYSQL_ROOT_PASSWORD=password mariadb/columnstore:latest
+   docker compose -f docker/columnstore.yml up -d
    ```
 
 2. **Get the data:**
@@ -113,19 +113,14 @@ Before running the analytics benchmark, ensure you have the following installed 
    python3 load/get_data.py
    ```
 
-3. **Create schema:**
+3. **Load data:**
    ```bash
-   mysql -P 3306 -h 127.0.0.1 -u root -ppassword < schemas/columnstore.sql
+   python3 load/load_data_columnstore.py
    ```
 
-4. **Load data:**
+4. **Run benchmark:**
    ```bash
-   python3 load/columnstore_load.py
-   ```
-
-5. **Run benchmark:**
-   ```bash
-   python3 run.py
+   python3 run_benchmarks.py
    ```
 
 ## Run The Project
