@@ -10,17 +10,15 @@ This simple data set uses the [on time performance](https://www.transtats.bts.go
 ## Prerequisite
 Before running the analytics benchmark, ensure you have the following installed and configured:
 
-### Database Engines
-- **MariaDB ColumnStore**
-- **PingCap TiDB**
-- **Apache Doris**
-- **StarRocks**
-
 ### Required Software
-- **Python 3.8+** with the following packages:
-  - `mysql-connector-python` or `PyMySQL` (for MySQL/MariaDB connections)
-  - `pandas` (for data manipulation)
-  - `csv` module (built-in)
+- **Docker** and **Docker Compose** (for running containerized database engines)
+  - Install from: https://docs.docker.com/get-docker/
+- **TiUP** (for TiDB installation and management)
+  - Install with: `curl --proto '=https' --tlsv1.2 -sSf https://tiup-mirrors.pingcap.com/install.sh | sh`
+- **Python 3.12+** with required packages:
+  ```bash
+  pip install mysql-connector-python pandas requests beautifulsoup4 tqdm
+  ```
 
 ### System Requirements
 - Minimum 16GB RAM (32GB+ recommended for optimal performance)
@@ -72,12 +70,8 @@ Before running the analytics benchmark, ensure you have the following installed 
    ```
 
 ### PingCAP TiDB
-1. **Install TiUP:**
-   ```bash
-   curl --proto '=https' --tlsv1.2 -sSf https://tiup-mirrors.pingcap.com/install.sh | sh
-   ```
 
-2. **Start TiDB:**
+1. **Start TiDB:**
    ```bash
    tiup playground --db.port 9030
    ```
