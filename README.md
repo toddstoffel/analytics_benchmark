@@ -89,7 +89,7 @@ Before running the analytics benchmark, ensure you have the following installed 
 
 3. **Create schema:**
    ```bash
-   mysql -P 9030 -h 127.0.0.1 -u root < schemas/generic.sql
+   mysql -P 9030 -h 127.0.0.1 -u root < schemas/tidb.sql
    ```
 
 4. **Load data:**
