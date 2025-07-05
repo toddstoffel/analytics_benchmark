@@ -1,4 +1,4 @@
-# Sample Flight Data
+# Analytics Database Performance Benchmark
 ## Description 
 This simple data set uses the [on time performance](https://www.transtats.bts.gov/homepage.asp) dataset from the *Bureau of Transportation Statistics (BTS)* for US based commercial airline flights. This includes the following 3 tables:
 
