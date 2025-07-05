@@ -11,10 +11,71 @@ This simple data set uses the [on time performance](https://www.transtats.bts.go
 *   **flight_data**: Full flights data set with airlines and airports embedded in BSON format (38,083,735 records)
 
 ## Prerequisite
-Replace this section 
+Before running the analytics benchmark, ensure you have the following installed and configured:
+
+### Database Engines
+- **MariaDB Server** (with InnoDB and ColumnStore engines)
+- **PingCap TiDB**
+- **Apache Doris**
+- **StarRocks**
+- **MongoDB Community Server**
+
+### Required Software
+- **Python 3.8+** with the following packages:
+  - `pymongo` (for MongoDB operations)
+  - `mysql-connector-python` or `PyMySQL` (for MySQL/MariaDB connections)
+  - `pandas` (for data manipulation)
+  - `csv` module (built-in)
+
+### System Requirements
+- Minimum 16GB RAM (32GB+ recommended for optimal performance)
+- At least 200GB free disk space for data storage
+- Multi-core CPU for parallel processing
 
 ## Quick Start
-Replace this section
+1. **Clone the repository:**
+   ```bash
+   git clone <repository-url>
+   cd analytics_benchmark
+   ```
+
+2. **Install Python dependencies:**
+   ```bash
+   pip install pymongo mysql-connector-python pandas
+   ```
+
+3. **Start database services:**
+   ```bash
+   # Start MongoDB
+   mongod --dbpath /path/to/mongodb/data
+   
+   # Start MariaDB
+   systemctl start mariadb
+   
+   # Start other database engines as per their documentation
+   ```
+
+4. **Download the flight data:**
+   - Download the CSV files (airlines, airports, flights) from the BTS website
+   - Place them in the `data/` directory
+   - Alternatively, use the provided BSON file for MongoDB
+
+5. **Load data into databases:**
+   ```bash
+   # Load into MongoDB
+   python scripts/load_mongodb.py
+   
+   # Load into MariaDB/MySQL
+   python scripts/load_mysql.py
+   
+   # Load into other engines
+   python scripts/load_<engine>.py
+   ```
+
+6. **Run benchmark queries:**
+   ```bash
+   python scripts/run_benchmark.py
+   ```
 
 ## Run The Project
 ### Data Load Times
