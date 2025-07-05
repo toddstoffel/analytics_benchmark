@@ -11,7 +11,7 @@ This simple data set uses the [on time performance](https://www.transtats.bts.go
 Before running the analytics benchmark, ensure you have the following installed and configured:
 
 ### Database Engines
-- **MariaDB Server** (with InnoDB and ColumnStore engines)
+- **MariaDB ColumnStore**
 - **PingCap TiDB**
 - **Apache Doris**
 - **StarRocks**
@@ -41,8 +41,8 @@ Before running the analytics benchmark, ensure you have the following installed 
 
 3. **Start database services:**
    ```bash
-   # Start MariaDB
-   systemctl start mariadb
+   # Start MariaDB ColumnStore
+   systemctl start mariadb-columnstore
    
    # Start other database engines as per their documentation
    ```
@@ -53,7 +53,7 @@ Before running the analytics benchmark, ensure you have the following installed 
 
 5. **Load data into databases:**
    ```bash
-   # Load into MariaDB/MySQL
+   # Load into MariaDB ColumnStore
    python scripts/load_mysql.py
    
    # Load into other engines
@@ -69,25 +69,24 @@ Before running the analytics benchmark, ensure you have the following installed 
 ### Data Load Times
 |Engine                |Time                 |
 |:---------------------|:--------------------|
-|MariaDB InnoDB        |9 min 48.34 sec      |
 |MariaDB ColumnStore   |69 sec               |
 |PingCap TiDB          |12 min 36 sec        |
 |Apache Doris          |57 sec               |
 |StarRocks             |44 sec               |
 
 ### Query Times
-|Query |InnoDB               |ColumnStore          |TiDB                 |Doris                |StarRocks            |
-|:-----|:--------------------|:--------------------|:--------------------|:--------------------|:--------------------|
-|1     |1 min 59 sec         |**Error**            |0.77 sec             |0.40 sec             |0.27 sec             |
-|2     |4 min                |5.28 sec             |1.05 sec             |0.64 sec             |0.83 sec             |
-|3     |27 sec               |0.29 sec             |0.17 sec             |0.12 sec             |0.10 sec             |
-|4     |28 sec               |0.10 sec             |0.07 sec             |0.03 sec             |0.04 sec             |
-|5     |1 min 29 sec         |0.99 sec             |0.35 sec             |0.08 sec             |0.10 sec             |
-|6     |1 min 15 sec         |13.81 sec            |4.00 sec             |0.90 sec             |0.77 sec             |
-|7     |1 min 15 sec         |12.98 sec            |3.52 sec             |0.67 sec             |0.57 sec             |
-|8     |1 min                |**Error**            |0.47 sec             |0.14 sec             |0.10 sec             |
-|9     |1 min 19 sec         |13.18 sec            |3.57 sec             |0.64 sec             |0.46 sec             |
-|10    |10 min 48 sec        |2.70 sec             |0.48 sec             |0.14 sec             |0.10 sec             |
+|Query |ColumnStore          |TiDB                 |Doris                |StarRocks            |
+|:-----|:--------------------|:--------------------|:--------------------|:--------------------|
+|1     |**Error**            |0.77 sec             |0.40 sec             |0.27 sec             |
+|2     |5.28 sec             |1.05 sec             |0.64 sec             |0.83 sec             |
+|3     |0.29 sec             |0.17 sec             |0.12 sec             |0.10 sec             |
+|4     |0.10 sec             |0.07 sec             |0.03 sec             |0.04 sec             |
+|5     |0.99 sec             |0.35 sec             |0.08 sec             |0.10 sec             |
+|6     |13.81 sec            |4.00 sec             |0.90 sec             |0.77 sec             |
+|7     |12.98 sec            |3.52 sec             |0.67 sec             |0.57 sec             |
+|8     |**Error**            |0.47 sec             |0.14 sec             |0.10 sec             |
+|9     |13.18 sec            |3.57 sec             |0.64 sec             |0.46 sec             |
+|10    |2.70 sec             |0.48 sec             |0.14 sec             |0.10 sec             |
 
 ### Notes
 - **MariaDB ColumnStore** was the only database engine that failed to complete all benchmark queries, encountering errors on queries 1 and 8. Despite being designed for analytical workloads, it was unable to handle certain complex query patterns in this benchmark
