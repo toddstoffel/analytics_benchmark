@@ -28,41 +28,104 @@ Before running the analytics benchmark, ensure you have the following installed 
 - Multi-core CPU for parallel processing
 
 ## Quick Start
-1. **Clone the repository:**
+
+### StarRocks
+1. **Start StarRocks:**
    ```bash
-   git clone <repository-url>
-   cd analytics_benchmark
+   docker run -p 9030:9030 -p 8030:8030 -p 8040:8040 -itd --name quickstart starrocks/allin1-ubuntu
    ```
 
-2. **Install Python dependencies:**
+2. **Get the data:**
    ```bash
-   pip install mysql-connector-python pandas
+   python3 load/get_data.py
    ```
 
-3. **Start database services:**
+3. **Load data:**
    ```bash
-   # Start MariaDB ColumnStore
-   systemctl start mariadb-columnstore
-   
-   # Start other database engines as per their documentation
+   python3 load/load_data.py
    ```
 
-4. **Download the flight data:**
-   - Download the CSV files (airlines, airports, flights) from the BTS website
-   - Place them in the `data/` directory
-
-5. **Load data into databases:**
+4. **Run benchmark:**
    ```bash
-   # Load into MariaDB ColumnStore
-   python scripts/load_mysql.py
-   
-   # Load into other engines
-   python scripts/load_<engine>.py
+   python3 run_benchmarks.py
    ```
 
-6. **Run benchmark queries:**
+### Apache Doris
+1. **Start Apache Doris:**
    ```bash
-   python scripts/run_benchmark.py
+   docker compose -f docker/doris.yml up -d
+   ```
+
+2. **Get the data:**
+   ```bash
+   python3 load/get_data.py
+   ```
+
+3. **Load data:**
+   ```bash
+   python3 load/load_data.py
+   ```
+
+4. **Run benchmark:**
+   ```bash
+   python3 run_benchmarks.py
+   ```
+
+### PingCAP TiDB
+1. **Install TiUP:**
+   ```bash
+   curl --proto '=https' --tlsv1.2 -sSf https://tiup-mirrors.pingcap.com/install.sh | sh
+   ```
+
+2. **Start TiDB:**
+   ```bash
+   tiup playground --db.port 9030
+   ```
+
+2. **Get the data:**
+   ```bash
+   python3 load/get_data.py
+   ```
+
+3. **Create schema:**
+   ```bash
+   mysql -P 9030 -h 127.0.0.1 -u root < schemas/generic.sql
+   ```
+
+4. **Load data:**
+   ```bash
+   python3 load/load_data_tidb.py
+   ```
+
+5. **Run benchmark:**
+   ```bash
+   python3 run_benchmarks.py
+   ```
+
+### MariaDB ColumnStore
+1. **Start MariaDB ColumnStore:**
+   ```bash
+   docker run -p 3306:3306 -itd --name columnstore -e MYSQL_ROOT_PASSWORD=password mariadb/columnstore:latest
+   ```
+
+2. **Get the data:**
+   ```bash
+   python3 load/get_data.py
+   ```
+
+3. **Create schema:**
+   ```bash
+   mysql -P 3306 -h 127.0.0.1 -u root -ppassword < schemas/columnstore.sql
+   ```
+
+4. **Load data:**
+   ```bash
+   python3 load/columnstore_load.py
+   ```
+
+5. **Run benchmark:**
+   ```bash
+   python3 run.py
    ```
 
 ## Run The Project

@@ -1,0 +1,12 @@
+services:
+  quickstart:
+    image: starrocks/allin1-ubuntu
+    container_name: quickstart
+    ports:
+      - "9030:9030"   # MySQL frontend
+      - "8030:8030"   # Web UI
+      - "8040:8040"   # FE heartbeat
+    stdin_open: true
+    tty: true
+    command: /bin/bash -c "/data/deploy/starrocks/fe/bin/start_fe.sh && /data/deploy/starrocks/be/bin/start_be.sh && tail -f /dev/null"
+    restart: unless-stopped
