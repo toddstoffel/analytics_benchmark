@@ -1,0 +1,77 @@
+services:
+  quickstart:
+    image: starrocks/allin1-ubuntu
+    container_name: quickstart
+    hostname: starrocks
+    networks:
+      starrocks_net:
+        ipv4_address: 172.18.238.10
+    ports:
+      - "0.0.0.0:9030:9030"   # MySQL frontend
+      - "0.0.0.0:8030:8030"   # Web UI
+      - "0.0.0.0:8040:8040"   # FE heartbeat
+      - "0.0.0.0:9050:9050"   # BE heartbeat
+      - "0.0.0.0:8060:8060"   # BE http port
+      - "0.0.0.0:9060:9060"   # BE RPC port
+    stdin_open: true
+    tty: true
+    environment:
+      - FE_SERVERS=172.18.238.10:9010
+      - BE_ADDR=172.18.238.10:9050
+    command: |
+      /bin/bash -c "
+        # Start frontend first
+        /data/deploy/starrocks/fe/bin/start_fe.sh &
+        
+        # Wait for frontend to be ready
+        echo 'Waiting for frontend to start...'
+        sleep 15
+        
+        # Check if frontend is ready
+        for i in {1..30}; do
+          if mysql -h 172.18.238.10 -P 9030 -u root -e 'SHOW FRONTENDS' 2>/dev/null; then
+            echo 'Frontend is ready'
+            break
+          fi
+          sleep 2
+        done
+        
+        # Start backend with proper IP configuration
+        echo 'Starting backend service...'
+        /data/deploy/starrocks/be/bin/start_be.sh &
+        
+        # Wait for backend to initialize
+        sleep 10
+        
+        # Add backend to cluster with fixed IP
+        echo 'Adding backend to cluster...'
+        for i in {1..20}; do
+          if mysql -h 172.18.238.10 -P 9030 -u root -e \"ALTER SYSTEM ADD BACKEND '172.18.238.10:9050'\" 2>/dev/null; then
+            echo 'Backend added successfully'
+            break
+          fi
+          echo 'Retrying backend registration...'
+          sleep 3
+        done
+        
+        # Show cluster status
+        mysql -h 172.18.238.10 -P 9030 -u root -e 'SHOW BACKENDS' 2>/dev/null || true
+        
+        # Keep container running
+        echo 'StarRocks cluster is ready'
+        tail -f /dev/null
+      "
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "mysql -h 172.18.238.10 -P 9030 -u root -e 'SHOW BACKENDS' | grep -q 'true' || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 120s
+
+networks:
+  starrocks_net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.18.238.0/24

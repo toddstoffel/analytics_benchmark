@@ -1,0 +1,38 @@
+services:
+  fe:
+    image: apache/doris:fe-3.0.4
+    hostname: fe
+    container_name: doris_fe
+    environment:
+     - FE_SERVERS=${FE_SERVERS:-fe1:172.16.238.10:9010}
+     - FE_ID=${FE_ID:-1}
+    networks:
+      doris_net:
+        ipv4_address: 172.16.238.10
+    ports:
+      - "0.0.0.0:9030:9030"
+      - "0.0.0.0:8030:8030"
+    restart: unless-stopped
+
+  be:
+    image: apache/doris:be-3.0.4
+    hostname: be
+    container_name: doris_be
+    environment:
+     - FE_SERVERS=${FE_SERVERS:-fe1:172.16.238.10:9010}
+     - BE_ADDR=${BE_ADDR:-172.16.238.11:9050}
+    depends_on:
+      - fe
+    networks:
+      doris_net:
+        ipv4_address: 172.16.238.11
+    ports:
+      - "0.0.0.0:8040:8040"
+    restart: unless-stopped
+
+networks:
+  doris_net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.16.238.0/24

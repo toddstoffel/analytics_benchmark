@@ -1,0 +1,12 @@
+# OLAP Workload Testing & Benchmarking Suite Dependencies
+
+# Database connectors
+mysql-connector-python>=8.0.0
+clickhouse-driver>=0.2.0
+
+# HTTP requests and web scraping
+requests>=2.28.0
+beautifulsoup4>=4.11.0
+
+# Progress bars and utilities
+tqdm>=4.64.0

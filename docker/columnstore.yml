@@ -1,0 +1,19 @@
+services:
+
+  pm1:
+    image: mariadb/columnstore:latest
+    shm_size: '512mb'
+    hostname: mcs1
+    container_name: mcs1
+    volumes:
+      - data1:/var/lib/columnstore/data1
+      - storagemanager:/var/lib/columnstore/storagemanager
+      - ../csv:/var/lib/columnstore/csv:ro
+    environment:
+      PM1: mcs1
+    ports:
+      - 3306:3306
+
+volumes:
+  data1:
+  storagemanager:
