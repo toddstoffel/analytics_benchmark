@@ -29,6 +29,21 @@ A comprehensive benchmark framework for evaluating analytical database performan
 
 This benchmark suite provides **standardized testing for Online Analytical Processing (OLAP) workloads** across multiple database engines. The framework enables fair, reproducible performance comparisons using real-world analytical queries and datasets, helping organizations make informed decisions about analytical database technologies.
 
+### Scope and Purpose
+
+**This benchmark specifically focuses on open-source analytical databases that can be deployed on-premises and containerized with Docker.** While we acknowledge the existence of excellent cloud-native solutions like Snowflake, Amazon Redshift, Google BigQuery, and Azure Synapse Analytics, these managed services are outside the scope of this evaluation.
+
+**Why Open-Source, On-Premises, and Dockerizable?**
+- **Data Sovereignty**: Organizations requiring complete control over their data location and governance
+- **Cost Predictability**: Fixed infrastructure costs vs. variable cloud consumption pricing
+- **Compliance Requirements**: Industries with strict data residency and security regulations
+- **Technology Independence**: Avoiding vendor lock-in with portable, standards-based solutions
+- **Customization Flexibility**: Ability to modify and tune systems for specific use cases
+- **Container Portability**: Docker deployment enables consistent environments across development, testing, and production
+- **Infrastructure Agnostic**: Run on any Docker-compatible platform, from laptops to enterprise clusters
+
+This benchmark evaluates databases that can be deployed in your own infrastructure using Docker containers, whether on bare metal, virtual machines, Kubernetes clusters, or private cloud environments, providing organizations with truly portable and self-managed analytical solutions.
+
 ### Quick Results Summary
 
 **Top Performers:**
@@ -136,7 +151,7 @@ curl --proto '=https' --tlsv1.2 -sSf https://tiup-mirrors.pingcap.com/install.sh
 ### 1. Environment Setup
 
 ```bash
-git clone https://github.com/toddstoffel/analytics_benchmark.git
+git clone <repository-url>
 cd analytics_benchmark
 
 # Install Python dependencies
@@ -193,7 +208,7 @@ python3 run_benchmarks.py --database columnstore
 #### TiDB with TiFlash
 
 ```bash
-# Start TiDB
+# Start TiDB using TiUP (note: TiDB uses TiUP instead of Docker for optimal performance)
 tiup playground
 
 # Load data
@@ -202,6 +217,8 @@ python3 load/load_data.py --database tidb
 # Run benchmark
 python3 run_benchmarks.py --database tidb
 ```
+
+> **Note**: TiDB uses TiUP for cluster management rather than Docker Compose. TiUP provides better resource management and TiFlash integration for analytical workloads.
 
 #### StarRocks
 
@@ -255,6 +272,26 @@ The benchmark includes **a comprehensive set of 20 analytical queries** represen
 - Cross-airline performance benchmarking
 - Varying data selectivity and aggregation complexity levels
 
+**Example Queries:**
+
+```sql
+-- Query 1: Basic aggregation with filtering
+SELECT COUNT(*) as total_flights, 
+       AVG(arrival_delay) as avg_delay
+FROM flights 
+WHERE departure_date >= '2023-01-01';
+
+-- Query 12: Complex multi-table join with window functions
+SELECT a.airline_name,
+       COUNT(f.flight_id) as flight_count,
+       RANK() OVER (ORDER BY AVG(f.arrival_delay) ASC) as delay_rank
+FROM flights f
+JOIN airlines a ON f.airline_id = a.airline_id
+JOIN airports ap ON f.destination_airport_id = ap.airport_id
+WHERE ap.state = 'CA'
+GROUP BY a.airline_name;
+```
+
 ### Performance Metrics
 
 - **Query Execution Time**: Individual query performance measurement
@@ -270,12 +307,18 @@ The benchmark includes **a comprehensive set of 20 analytical queries** represen
   - **Storage**: 926GB SSD
 - **OS**: macOS 15.5 (24F74)
 - **Containerization**: Docker Desktop for Mac
+- **Container Resources**: 
+  - Memory limit: 8GB per database container
+  - CPU limit: 6 cores per database container
+  - Shared volumes for data persistence
 - **Methodology**: Cold cache scenarios for realistic performance
 - **Workload**: Single-user workload simulation
 - **Resource Allocation**: Standardized hardware allocation across all databases
 - **Network**: Localhost connections to eliminate network latency
 
 ## Performance Results
+
+> **Last Updated**: July 2025 | **Dataset**: 38,083,735 flight records | **Test Environment**: MacBook Pro M1 Pro
 
 ### Query Execution Performance
 
@@ -311,6 +354,20 @@ The following table shows execution times for each query in the benchmark suite:
 | [19](queries/sql/19.sql) | 🟢 0.31 sec | ❌ Error | 🟢 0.47 sec | 🟢 0.27 sec | 🔴 59.05 sec |
 | [20](queries/sql/20.sql) | 🟢 0.25 sec | 🟠 5.36 sec | 🟡 0.50 sec | 🟢 0.19 sec | 🟠 2.77 sec |
 
+### Data Loading Performance
+
+The following table shows data ingestion times for the complete dataset (38M+ records):
+
+| Database | Loading Time | Success Rate | Notes |
+|----------|--------------|--------------|-------|
+| ClickHouse | ~3-5 minutes | 100% | Fast bulk loading with native CSV support |
+| Apache Doris | ~5-8 minutes | 100% | Requires backend node initialization time |
+| StarRocks | ~4-7 minutes | 100% | Efficient columnar data ingestion |
+| TiDB/TiFlash | ~8-12 minutes | 100% | Includes TiFlash replica synchronization |
+| MariaDB ColumnStore | ~10-15 minutes | 100% | Slower due to row-to-column conversion |
+
+> **Note**: Loading times include both data ingestion and index/replica creation. Times may vary based on hardware specifications and system load.
+
 
 ## Key Observations
 
@@ -331,6 +388,18 @@ The following table shows execution times for each query in the benchmark suite:
 **MariaDB ColumnStore**: Shows moderate compatibility challenges with complex analytical queries, achieving 75% success rate (15/20 queries). Failed queries primarily involve advanced CTEs and complex window functions, indicating some limitations with modern SQL analytical patterns. When successful, performance is generally slower than purpose-built OLAP systems, with total execution time of 121.21 seconds for successful queries.
 
 **Apache Doris**: Demonstrates excellent compatibility with 100% query success rate and balanced performance characteristics across all query complexity levels, making it suitable for comprehensive analytical workloads.
+
+### Performance Summary
+
+| Database | Total Time | Success Rate | Queries Failed | Best For |
+|----------|------------|--------------|----------------|----------|
+| ClickHouse | 6.38s | 100% (20/20) | None | High-performance analytics |
+| StarRocks | 6.75s | 100% (20/20) | None | Consistent performance |
+| Apache Doris | ~11.5s | 100% (20/20) | None | Balanced workloads |
+| TiDB/TiFlash | 312.78s | 100% (20/20) | None | HTAP scenarios |
+| MariaDB ColumnStore | 121.21s* | 75% (15/20) | 1,3,4,17,19 | Legacy integration |
+
+*Total time for successful queries only
 
 ## Limitations & Considerations
 
@@ -397,9 +466,20 @@ A: Absolutely! Add your queries to the `queries/sql/` directory and they'll be a
 **Issue**: TiDB data loading is slow
 **Solution**: TiFlash needs time to create columnar replicas. This is normal and improves query performance.
 
+## Related Projects
+
+For additional context and comparison, consider these established analytical benchmarks:
+
+- **[TPC-H](http://www.tpc.org/tpch/)**: Industry-standard decision support benchmark
+- **[TPC-DS](http://www.tpc.org/tpcds/)**: Decision support benchmark with complex queries
+- **[ClickBench](https://benchmark.clickhouse.com/)**: ClickHouse-focused analytical benchmark
+- **[Apache Arrow DataFusion Benchmarks](https://github.com/apache/arrow-datafusion/tree/master/benchmarks)**: Modern analytical engine benchmarks
+
+This benchmark complements existing efforts by focusing specifically on **Docker-deployable, on-premises solutions** with **real-world transportation data**, providing a practical evaluation framework for organizations considering self-hosted analytical databases.
+
 ## License
 
-This project is licensed under the Open Source License.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
 
