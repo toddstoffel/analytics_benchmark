@@ -84,7 +84,7 @@ This star schema design reflects typical data warehouse patterns, enabling reali
 - Apache Doris v2.0+
 - StarRocks v3.0+
 - TiDB v7.0+ (with TiFlash)
-- MariaDB ColumnStore v6.0+
+- MariaDB ColumnStore v23.02.4+
 
 ### Purpose-Built OLAP Systems
 
