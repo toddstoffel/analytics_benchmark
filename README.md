@@ -285,25 +285,25 @@ The following table shows execution times for each query in the benchmark suite:
 | Query | ClickHouse | ColumnStore | Doris | StarRocks | TiDB |
 |-------|------------|-------------|-------|-----------|------|
 | [1](queries/sql/1.sql) | 🟢 0.13 sec | ❌ Error | 🟢 0.23 sec | 🟢 0.13 sec | 🟡 0.53 sec |
-| [2](queries/sql/2.sql) | 🟡 0.54 sec | 🟠 5.50 sec | 🟡 0.79 sec | 🟡 0.99 sec | 🟡 0.94 sec |
+| [2](queries/sql/2.sql) | 🟡 0.54 sec | 🟠 6.35 sec | 🟡 0.79 sec | 🟡 0.99 sec | 🟡 0.94 sec |
 | [3](queries/sql/3.sql) | 🟢 0.05 sec | ❌ Error | 🟢 0.20 sec | 🟢 0.08 sec | 🟢 0.12 sec |
 | [4](queries/sql/4.sql) | 🟢 0.01 sec | ❌ Error | 🟢 0.10 sec | 🟢 0.05 sec | 🟢 0.06 sec |
-| [5](queries/sql/5.sql) | 🟢 0.10 sec | 🟡 0.90 sec | 🟢 0.08 sec | 🟢 0.08 sec | 🟢 0.37 sec |
-| [6](queries/sql/6.sql) | 🟡 0.66 sec | 🔴 12.39 sec | 🟡 1.12 sec | 🟡 0.57 sec | 🟠 3.72 sec |
-| [7](queries/sql/7.sql) | 🟡 0.63 sec | 🔴 11.81 sec | 🟡 0.97 sec | 🟢 0.46 sec | 🟠 3.42 sec |
-| [8](queries/sql/8.sql) | 🟢 0.06 sec | 🟡 1.59 sec | 🟢 0.21 sec | 🟢 0.08 sec | 🟢 0.40 sec |
-| [9](queries/sql/9.sql) | 🟡 0.68 sec | 🔴 11.86 sec | 🟡 0.91 sec | 🟢 0.42 sec | 🟠 3.42 sec |
-| [10](queries/sql/10.sql) | 🟢 0.09 sec | 🟠 2.17 sec | 🟢 0.14 sec | 🟢 0.11 sec | 🟢 0.46 sec |
-| [11](queries/sql/11.sql) | 🟢 0.22 sec | 🟠 3.16 sec | 🟢 0.49 sec | 🟢 0.19 sec | 🟡 0.99 sec |
-| [12](queries/sql/12.sql) | 🟡 0.81 sec | 🔴 17.06 sec | 🟡 1.48 sec | 🟡 0.62 sec | 🟠 5.31 sec |
-| [13](queries/sql/13.sql) | 🟢 0.25 sec | 🟠 4.14 sec | 🟢 0.40 sec | 🟢 0.19 sec | 🟠 2.46 sec |
-| [14](queries/sql/14.sql) | 🟢 0.49 sec | 🟠 8.04 sec | 🟡 0.60 sec | 🟢 0.36 sec | 🔴 74.33 sec |
-| [15](queries/sql/15.sql) | 🟢 0.40 sec | 🟠 8.67 sec | 🟡 0.58 sec | 🟢 0.27 sec | 🔴 147.88 sec |
-| [16](queries/sql/16.sql) | 🟢 0.24 sec | 🟠 4.92 sec | 🟡 0.53 sec | 🟡 0.90 sec | 🟠 3.44 sec |
+| [5](queries/sql/5.sql) | 🟢 0.10 sec | 🟡 0.99 sec | 🟢 0.08 sec | 🟢 0.08 sec | 🟢 0.37 sec |
+| [6](queries/sql/6.sql) | 🟡 0.66 sec | 🔴 15.03 sec | 🟡 1.12 sec | 🟡 0.57 sec | 🟠 3.72 sec |
+| [7](queries/sql/7.sql) | 🟡 0.63 sec | 🔴 14.40 sec | 🟡 0.97 sec | 🟢 0.46 sec | 🟠 3.42 sec |
+| [8](queries/sql/8.sql) | 🟢 0.06 sec | 🟡 1.96 sec | 🟢 0.21 sec | 🟢 0.08 sec | 🟢 0.40 sec |
+| [9](queries/sql/9.sql) | 🟡 0.68 sec | 🔴 14.27 sec | 🟡 0.91 sec | 🟢 0.42 sec | 🟠 3.42 sec |
+| [10](queries/sql/10.sql) | 🟢 0.09 sec | 🟠 2.57 sec | 🟢 0.14 sec | 🟢 0.11 sec | 🟢 0.46 sec |
+| [11](queries/sql/11.sql) | 🟢 0.22 sec | 🟠 4.04 sec | 🟢 0.49 sec | 🟢 0.19 sec | 🟡 0.99 sec |
+| [12](queries/sql/12.sql) | 🟡 0.81 sec | 🔴 20.81 sec | 🟡 1.48 sec | 🟡 0.62 sec | 🟠 5.31 sec |
+| [13](queries/sql/13.sql) | 🟢 0.25 sec | 🟠 4.74 sec | 🟢 0.40 sec | 🟢 0.19 sec | 🟠 2.46 sec |
+| [14](queries/sql/14.sql) | 🟢 0.49 sec | 🟠 9.58 sec | 🟡 0.60 sec | 🟢 0.36 sec | 🔴 74.33 sec |
+| [15](queries/sql/15.sql) | 🟢 0.40 sec | 🟠 9.05 sec | 🟡 0.58 sec | 🟢 0.27 sec | 🔴 147.88 sec |
+| [16](queries/sql/16.sql) | 🟢 0.24 sec | 🟠 6.32 sec | 🟡 0.53 sec | 🟡 0.90 sec | 🟠 3.44 sec |
 | [17](queries/sql/17.sql) | 🟢 0.16 sec | ❌ Error | 🟢 0.47 sec | 🟢 0.14 sec | 🟢 0.22 sec |
-| [18](queries/sql/18.sql) | 🟢 0.33 sec | 🟠 4.49 sec | 🟡 0.56 sec | 🟡 0.66 sec | 🟠 2.89 sec |
+| [18](queries/sql/18.sql) | 🟢 0.33 sec | 🟠 5.74 sec | 🟡 0.56 sec | 🟡 0.66 sec | 🟠 2.89 sec |
 | [19](queries/sql/19.sql) | 🟢 0.31 sec | ❌ Error | 🟢 0.47 sec | 🟢 0.27 sec | 🔴 59.05 sec |
-| [20](queries/sql/20.sql) | 🟢 0.25 sec | 🟠 4.65 sec | 🟡 0.50 sec | 🟢 0.19 sec | 🟠 2.77 sec |
+| [20](queries/sql/20.sql) | 🟢 0.25 sec | 🟠 5.36 sec | 🟡 0.50 sec | 🟢 0.19 sec | 🟠 2.77 sec |
 
 
 ## Key Observations
@@ -322,7 +322,7 @@ The following table shows execution times for each query in the benchmark suite:
 
 **TiDB/TiFlash Analysis**: Achieves 100% query success rate (20/20 queries) with total execution time of 312.78 seconds. While TiDB shows slower analytical performance compared to purpose-built OLAP systems, particularly on complex queries (queries 14, 15, and 19), it provides the unique advantage of unified HTAP capabilities—enabling transactional and analytical workloads on the same dataset without ETL processes. Performance varies significantly by query complexity, with simple queries executing competitively but complex analytical patterns taking substantially longer.
 
-**MariaDB ColumnStore**: Shows moderate compatibility challenges with complex analytical queries, achieving 75% success rate (15/20 queries). Failed queries primarily involve advanced CTEs and complex window functions, indicating some limitations with modern SQL analytical patterns. When successful, performance is generally slower than purpose-built OLAP systems, with total execution time of 101.35 seconds for successful queries.
+**MariaDB ColumnStore**: Shows moderate compatibility challenges with complex analytical queries, achieving 75% success rate (15/20 queries). Failed queries primarily involve advanced CTEs and complex window functions, indicating some limitations with modern SQL analytical patterns. When successful, performance is generally slower than purpose-built OLAP systems, with total execution time of 121.21 seconds for successful queries.
 
 **Apache Doris**: Demonstrates excellent compatibility with 100% query success rate and balanced performance characteristics across all query complexity levels, making it suitable for comprehensive analytical workloads.
 
