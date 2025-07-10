@@ -122,12 +122,14 @@ curl --proto '=https' --tlsv1.2 -sSf https://tiup-mirrors.pingcap.com/install.sh
 
 ### Hardware Recommendations
 
-| Component | Minimum | Recommended |
-|-----------|---------|-------------|
-| Memory | 16GB RAM | 32GB+ RAM |
-| Storage | 200GB free space | SSD storage |
-| CPU | Multi-core | High-performance multi-core |
-| Network | Standard | High bandwidth for data loading |
+| Component | Minimum | Recommended | Benchmark System |
+|-----------|---------|-------------|------------------|
+| Memory | 16GB RAM | 32GB+ RAM | 16GB (M1 Pro) |
+| Storage | 200GB free space | SSD storage | 926GB SSD |
+| CPU | Multi-core | High-performance multi-core | M1 Pro (10-core) |
+| Network | Standard | High bandwidth for data loading | Localhost |
+
+> **Note**: The benchmark results shown were obtained on a MacBook Pro M1 Pro with 16GB RAM, demonstrating that excellent performance can be achieved even on laptop-class hardware.
 
 ## Quick Start Guide
 
@@ -262,8 +264,12 @@ The benchmark includes **a comprehensive set of 20 analytical queries** represen
 
 ### Testing Environment
 
-- **Hardware**: 16-core CPU, 32GB RAM, SSD storage
-- **OS**: Ubuntu 22.04 LTS (containerized)
+- **Hardware**: MacBook Pro (M1 Pro, 2021)
+  - **CPU**: Apple M1 Pro (10-core: 8 performance + 2 efficiency cores)
+  - **Memory**: 16GB unified memory
+  - **Storage**: 926GB SSD
+- **OS**: macOS 15.5 (24F74)
+- **Containerization**: Docker Desktop for Mac
 - **Methodology**: Cold cache scenarios for realistic performance
 - **Workload**: Single-user workload simulation
 - **Resource Allocation**: Standardized hardware allocation across all databases
