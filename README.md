@@ -365,21 +365,6 @@ The following table shows execution times for each query in the benchmark suite:
 | [19](queries/sql/19.sql) | 🟢 0.31 sec | ❌ Error | 🟢 0.47 sec | 🟢 0.27 sec | 🔴 59.05 sec |
 | [20](queries/sql/20.sql) | 🟢 0.25 sec | 🟠 5.36 sec | 🟡 0.50 sec | 🟢 0.19 sec | 🟠 2.77 sec |
 
-### Data Loading Performance
-
-The following table shows data ingestion times for the complete dataset (38M+ records):
-
-| Database | Loading Time | Success Rate | Notes |
-|----------|--------------|--------------|-------|
-| ClickHouse | ~3-5 minutes | 100% | Fast bulk loading with native CSV support |
-| Apache Doris | ~5-8 minutes | 100% | Requires backend node initialization time |
-| StarRocks | ~4-7 minutes | 100% | Efficient columnar data ingestion |
-| TiDB/TiFlash | ~8-12 minutes | 100% | Includes TiFlash replica synchronization |
-| MariaDB ColumnStore | ~10-15 minutes | 100% | Slower due to row-to-column conversion |
-
-> **Note**: Loading times include both data ingestion and index/replica creation. Times may vary based on hardware specifications and system load.
-
-
 ## Key Observations
 
 ### Performance Leaders
