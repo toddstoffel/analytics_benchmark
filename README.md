@@ -367,13 +367,13 @@ The following table shows execution times for each query in the benchmark suite:
 
 ### Data Load Performance
 
+
 The following table shows data ingestion performance for the complete dataset (38,083,735 flight records):
 
 **Load Speed Legend:**
- - 🔵 Ultra Fast (< 1 minute)
- - 🟢 Fast (1-2 minutes)
- - 🟡 Moderate (2-5 minutes)
- - 🟠 Slow (5-10 minutes)
+ - 🔵 Fast (< 1.5 minutes)
+ - 🟢 Moderate (1.5–5 minutes)
+ - 🟡 Slow (5–10 minutes)
  - 🔴 Very Slow (> 10 minutes)
 
 | Database      | Import Time   | Rows/s    | Status | Notes                |
