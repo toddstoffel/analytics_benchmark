@@ -378,11 +378,11 @@ The following table shows data ingestion performance for the complete dataset (3
 
 | Database      | Import Time   | Rows/s    | Status | Notes                |
 |--------------|--------------|-----------|--------|----------------------|
-| ClickHouse    | 🔵 57.00 sec  | 694,723   | ✅     | Native CSV, columnar |
-| Doris         | 🟡 174.00 sec | 222,802   | ✅     | Stream Load, warmup  |
-| StarRocks     | 🟢 100.00 sec | 379,777   | ✅     | Vectorized ingest    |
-| TiDB/TiFlash  | 🔴 735.00 sec | 51,563    | ✅     | Lightning, replica   |
-| ColumnStore   | 🔵 39.00 sec  | 1,109,264 | ✅     | cpimport, conversion |
+| ClickHouse    | 🔵 57.00 sec  | 694,723   | ✅ Success | Native CSV, columnar |
+| Doris         | 🟡 174.00 sec | 222,802   | ✅ Success | Stream Load, warmup  |
+| StarRocks     | 🟢 100.00 sec | 379,777   | ✅ Success | Vectorized ingest    |
+| TiDB/TiFlash  | 🔴 735.00 sec | 51,563    | ✅ Success | Lightning, replica   |
+| ColumnStore   | 🔵 39.00 sec  | 1,109,264 | ✅ Success | cpimport, conversion |
 
 > **Note**: Load times include both data ingestion and any required index/replica creation. Measurements taken on MacBook Pro M1 Pro with containerized deployments. Results may vary based on hardware specifications and system configuration.
 
