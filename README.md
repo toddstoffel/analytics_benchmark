@@ -272,25 +272,36 @@ The benchmark includes **a comprehensive set of 20 analytical queries** represen
 - Cross-airline performance benchmarking
 - Varying data selectivity and aggregation complexity levels
 
-**Example Queries:**
+**Example Query Patterns:**
+
+The actual benchmark queries are significantly more complex than basic examples. Here are simplified representations of the analytical patterns used:
 
 ```sql
--- Query 1: Basic aggregation with filtering
-SELECT COUNT(*) as total_flights, 
-       AVG(arrival_delay) as avg_delay
-FROM flights 
-WHERE departure_date >= '2023-01-01';
+-- Pattern from Query 1: Multi-CTE airline market analysis
+-- (Actual query calculates market share percentages with cross joins)
+WITH flight_stats AS (
+    SELECT a.airline, COUNT(*) AS volume, SUM(f.cancelled) AS cancelled
+    FROM flights f JOIN airlines a ON f.carrier = a.iata_code
+    WHERE f.year = 2020 GROUP BY a.airline
+)
+SELECT fs.airline, fs.volume,
+       ROUND(100 * fs.volume / total.volume, 2) AS market_share_pct
+FROM flight_stats fs CROSS JOIN (SELECT SUM(volume) AS volume FROM flight_stats) total;
 
--- Query 12: Complex multi-table join with window functions
-SELECT a.airline_name,
-       COUNT(f.flight_id) as flight_count,
-       RANK() OVER (ORDER BY AVG(f.arrival_delay) ASC) as delay_rank
-FROM flights f
-JOIN airlines a ON f.airline_id = a.airline_id
-JOIN airports ap ON f.destination_airport_id = ap.airport_id
-WHERE ap.state = 'CA'
-GROUP BY a.airline_name;
+-- Pattern from Query 12: Advanced window functions with performance categorization  
+-- (Actual query includes month name conversion and performance categories)
+WITH monthly_perf AS (
+    SELECT a.airline, f.month, AVG(f.arr_delay) AS avg_delay
+    FROM flights f JOIN airlines a ON f.carrier = a.iata_code
+    GROUP BY a.airline, f.month HAVING COUNT(*) >= 100
+)
+SELECT airline, month, avg_delay,
+       RANK() OVER (PARTITION BY month ORDER BY avg_delay ASC) AS rank,
+       CASE WHEN RANK() OVER (...) <= 3 THEN 'Top Performer' ELSE 'Average' END AS category
+FROM monthly_perf;
 ```
+
+> **Note**: These are simplified representations. The actual queries in [`queries/sql/`](queries/sql/) are more sophisticated, featuring complex CTEs, advanced aggregations, comprehensive business logic, and performance optimizations. View the individual `.sql` files for complete query implementations.
 
 ### Performance Metrics
 
