@@ -350,8 +350,6 @@ The following table shows data ingestion performance for the complete dataset (3
 | TiDB/TiFlash  | 🔴 735.00 sec | 51,563    | ✅ Success | Lightning, replica   |
 | ColumnStore   | 🟢 39.00 sec  | 1,109,264 | ✅ Success | cpimport, conversion |
 
-> **Note**: Load times include both data ingestion and any required index/replica creation. Measurements taken on MacBook Pro M1 Pro with containerized deployments. Results may vary based on hardware specifications and system configuration.
-
 ### Query Execution Performance
 
 The following table shows execution times for each query in the benchmark suite:
