@@ -409,15 +409,15 @@ The following table shows data ingestion performance for the complete dataset (3
 
 ### Performance Summary
 
-| Database | Total Time | Success Rate | Queries Failed | Data Load Time | Best For |
-|----------|------------|--------------|----------------|---------------|----------|
-| ClickHouse | 6.38s | 100% (20/20) | None | 0m 57s | High-performance analytics |
-| StarRocks | 6.75s | 100% (20/20) | None | 1m 40s | Consistent performance |
-| Apache Doris | ~11.5s | 100% (20/20) | None | 2m 54s | Balanced workloads |
-| TiDB/TiFlash | 312.78s | 100% (20/20) | None | 12m 15s | HTAP scenarios |
-| MariaDB ColumnStore | 121.21s* | 75% (15/20) | 1,3,4,17,19 | 0m 39s | Legacy integration |
+| Database      | Query Time  | Success   | Failed      | Load Time   | Best For               |
+|--------------|------------|-----------|------------|------------|------------------------|
+| ClickHouse    | 6.38 sec   | 100%      | None       | 57.00 sec  | High-perf analytics    |
+| StarRocks     | 6.75 sec   | 100%      | None       | 100.00 sec | Consistent performance |
+| Doris         | 11.50 sec  | 100%      | None       | 174.00 sec | Balanced workloads     |
+| TiDB/TiFlash  | 312.78 sec | 100%      | None       | 735.00 sec | HTAP scenarios         |
+| ColumnStore   | 121.21 sec | 75%       | 1,3,4,17,19| 39.00 sec  | Legacy integration     |
 
-*Total time for successful queries only
+*Query Time: total for successful queries only
 
 ## Limitations & Considerations
 
