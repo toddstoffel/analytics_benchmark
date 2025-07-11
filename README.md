@@ -331,6 +331,27 @@ FROM monthly_perf;
 
 > **Last Updated**: July 2025 | **Dataset**: 38,083,735 flight records | **Test Environment**: MacBook Pro M1 Pro
 
+
+### Data Load Performance
+
+The following table shows data ingestion performance for the complete dataset (38,083,735 flight records):
+
+**Load Speed Legend:**
+ - 🟢 Fast (< 1.5 minutes)
+ - 🟡 Moderate (1.5–5 minutes)
+ - 🟠 Slow (5–10 minutes)
+ - 🔴 Very Slow (> 10 minutes)
+
+| Database      | Import Time   | Rows/s    | Status | Notes                |
+|--------------|--------------|-----------|--------|----------------------|
+| ClickHouse    | 🟢 57.00 sec  | 694,723   | ✅ Success | Native CSV, columnar |
+| Doris         | 🟡 174.00 sec | 222,802   | ✅ Success | Stream Load, warmup  |
+| StarRocks     | 🟢 100.00 sec | 379,777   | ✅ Success | Vectorized ingest    |
+| TiDB/TiFlash  | 🔴 735.00 sec | 51,563    | ✅ Success | Lightning, replica   |
+| ColumnStore   | 🟢 39.00 sec  | 1,109,264 | ✅ Success | cpimport, conversion |
+
+> **Note**: Load times include both data ingestion and any required index/replica creation. Measurements taken on MacBook Pro M1 Pro with containerized deployments. Results may vary based on hardware specifications and system configuration.
+
 ### Query Execution Performance
 
 The following table shows execution times for each query in the benchmark suite:
@@ -364,27 +385,6 @@ The following table shows execution times for each query in the benchmark suite:
 | [18](queries/sql/18.sql) | 🟢 0.33 sec | 🟠 5.74 sec | 🟡 0.56 sec | 🟡 0.66 sec | 🟠 2.89 sec |
 | [19](queries/sql/19.sql) | 🟢 0.31 sec | ❌ Error | 🟢 0.47 sec | 🟢 0.27 sec | 🔴 59.05 sec |
 | [20](queries/sql/20.sql) | 🟢 0.25 sec | 🟠 5.36 sec | 🟡 0.50 sec | 🟢 0.19 sec | 🟠 2.77 sec |
-
-### Data Load Performance
-
-
-The following table shows data ingestion performance for the complete dataset (38,083,735 flight records):
-
-**Load Speed Legend:**
- - 🟢 Fast (< 1.5 minutes)
- - 🟡 Moderate (1.5–5 minutes)
- - 🟠 Slow (5–10 minutes)
- - 🔴 Very Slow (> 10 minutes)
-
-| Database      | Import Time   | Rows/s    | Status | Notes                |
-|--------------|--------------|-----------|--------|----------------------|
-| ClickHouse    | 🟢 57.00 sec  | 694,723   | ✅ Success | Native CSV, columnar |
-| Doris         | 🟡 174.00 sec | 222,802   | ✅ Success | Stream Load, warmup  |
-| StarRocks     | 🟢 100.00 sec | 379,777   | ✅ Success | Vectorized ingest    |
-| TiDB/TiFlash  | 🔴 735.00 sec | 51,563    | ✅ Success | Lightning, replica   |
-| ColumnStore   | 🟢 39.00 sec  | 1,109,264 | ✅ Success | cpimport, conversion |
-
-> **Note**: Load times include both data ingestion and any required index/replica creation. Measurements taken on MacBook Pro M1 Pro with containerized deployments. Results may vary based on hardware specifications and system configuration.
 
 ## Key Observations
 
