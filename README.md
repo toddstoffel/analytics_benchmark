@@ -468,16 +468,16 @@ A: Absolutely! Add your queries to the `queries/sql/` directory and they'll be a
 
 ### Troubleshooting
 
-**Issue**: "No available capacity" errors with Doris/StarRocks
+**Issue**: "No available capacity" errors with Doris/StarRocks  
 **Solution**: Backend nodes need time to initialize. Wait 2-3 minutes or restart containers.
 
-**Issue**: ClickHouse connection failures
+**Issue**: ClickHouse connection failures  
 **Solution**: Ensure the client is installed and the container is fully started before running benchmarks.
 
-**Issue**: TiDB data loading is slow
+**Issue**: TiDB data loading is slow  
 **Solution**: TiFlash needs time to create columnar replicas. This is normal and improves query performance.
 
-**Issue**: "Couldn't find a tree builder with the features you requested: xml" error during data download
+**Issue**: "Couldn't find a tree builder with the features you requested: xml" error during data download  
 **Solution**: This indicates `lxml` is missing. Run `pip install -r requirements.txt` again, which now includes `lxml` for XML parsing support.
 
 ## Related Projects
