@@ -53,8 +53,8 @@ This benchmark evaluates databases that can be deployed in your own infrastructu
 
 **Key Findings:**
 - ClickHouse and StarRocks dominate performance benchmarks
-- TiDB offers unique HTAP capabilities but slower analytical performance
-- MariaDB ColumnStore shows compatibility issues with complex queries
+- TiDB/TiFlash: 12m 15s load time, 100% query success rate, but much slower data ingestion and analytical performance compared to OLAP-focused engines
+- MariaDB ColumnStore shows compatibility issues with complex queries, but has the fastest data load time
 - Real-world flight data (38M+ records) provides realistic testing scenarios
 
 ### OLAP vs OLTP
@@ -365,6 +365,27 @@ The following table shows execution times for each query in the benchmark suite:
 | [19](queries/sql/19.sql) | 🟢 0.31 sec | ❌ Error | 🟢 0.47 sec | 🟢 0.27 sec | 🔴 59.05 sec |
 | [20](queries/sql/20.sql) | 🟢 0.25 sec | 🟠 5.36 sec | 🟡 0.50 sec | 🟢 0.19 sec | 🟠 2.77 sec |
 
+### Data Load Performance
+
+The following table shows data ingestion performance for the complete dataset (38,083,735 flight records):
+
+**Load Speed Legend:**
+ - 🔵 Ultra Fast (< 1 minute)
+ - 🟢 Fast (1-2 minutes)
+ - 🟡 Moderate (2-5 minutes)
+ - 🟠 Slow (5-10 minutes)
+ - 🔴 Very Slow (> 10 minutes)
+
+| Database | Load Time | Throughput (rows/sec) | Status | Notes |
+|----------|-----------|----------------------|--------|-------|
+| ClickHouse | 🔵 0m 57s | 694,723 | ✅ Success | Native CSV support, columnar optimized |
+| Apache Doris | 🟡 2m 54s | 222,802 | ✅ Success | Stream Load API, requires BE node warmup |
+| StarRocks | 🟢 1m 40s | 379,777 | ✅ Success | Stream Load, vectorized ingestion |
+| TiDB/TiFlash | 🔴 12m 15s | 51,563 | ✅ Success | TiDB Lightning bulk import + TiFlash replica |
+| MariaDB ColumnStore | 🔵 0m 39s | 1,109,264 | ✅ Success | cpimport utility, row-to-column conversion |
+
+> **Note**: Load times include both data ingestion and any required index/replica creation. Measurements taken on MacBook Pro M1 Pro with containerized deployments. Results may vary based on hardware specifications and system configuration.
+
 ## Key Observations
 
 ### Performance Leaders
@@ -372,28 +393,29 @@ The following table shows execution times for each query in the benchmark suite:
 - **ClickHouse**: Exceptional performance across all query types with 100% success rate and consistently fast execution times. Particularly strong for simple aggregations and filtering operations, with excellent scalability to complex analytical queries.
 - **StarRocks**: Outstanding performance with 100% query success rate and highly competitive execution times. Demonstrates excellent consistency across different query patterns with total execution time of 6.75 seconds.
 - **Apache Doris**: Balanced performance characteristics suitable for general analytical workloads with full query compatibility
+- Data load performance varies widely: MariaDB ColumnStore and ClickHouse are fastest for ingestion, while TiDB/TiFlash is the slowest due to its architecture.
 
 ### System-Specific Insights
 
-**ClickHouse Analysis**: Demonstrates outstanding performance with perfect 100% query success rate (20/20 queries) and fastest overall execution time (6.38 seconds total). Shows excellent optimization for both simple and complex analytical patterns, making it ideal for high-performance analytical workloads.
+**ClickHouse Analysis**: Demonstrates outstanding performance with perfect 100% query success rate (20/20 queries) and fastest overall execution time (6.38 seconds total). Shows excellent optimization for both simple and complex analytical patterns, making it ideal for high-performance analytical workloads. Also among the fastest for bulk data ingestion (0m 57s).
 
-**StarRocks Analysis**: Delivers exceptional performance with perfect 100% query success rate (20/20 queries) and highly competitive total execution time (6.75 seconds). Shows excellent vectorized execution capabilities and strong optimization for both simple and complex analytical patterns, making it a strong contender for high-performance analytical workloads.
+**StarRocks Analysis**: Delivers exceptional performance with perfect 100% query success rate (20/20 queries) and highly competitive total execution time (6.75 seconds). Shows excellent vectorized execution capabilities and strong optimization for both simple and complex analytical patterns, making it a strong contender for high-performance analytical workloads. Data load speed is also competitive (1m 40s).
 
-**TiDB/TiFlash Analysis**: Achieves 100% query success rate (20/20 queries) with total execution time of 312.78 seconds. While TiDB shows slower analytical performance compared to purpose-built OLAP systems, particularly on complex queries (queries 14, 15, and 19), it provides the unique advantage of unified HTAP capabilities—enabling transactional and analytical workloads on the same dataset without ETL processes. Performance varies significantly by query complexity, with simple queries executing competitively but complex analytical patterns taking substantially longer.
+**TiDB/TiFlash Analysis**: Achieves 100% query success rate (20/20 queries) with total execution time of 312.78 seconds. While TiDB shows slower analytical performance compared to purpose-built OLAP systems, particularly on complex queries (queries 14, 15, and 19), it provides the unique advantage of unified HTAP capabilities—enabling transactional and analytical workloads on the same dataset without ETL processes. Performance varies significantly by query complexity, with simple queries executing competitively but complex analytical patterns taking substantially longer. Data load speed for TiDB/TiFlash is significantly slower (12m 15s) than other engines, reflecting the overhead of TiDB Lightning bulk import and TiFlash replica creation. This is a tradeoff for unified HTAP capabilities and strong transactional consistency. TiDB/TiFlash remains a viable choice for organizations prioritizing hybrid transactional/analytical workloads and seamless data integration, but is not recommended for time-sensitive bulk analytical ingestion.
 
-**MariaDB ColumnStore**: Shows moderate compatibility challenges with complex analytical queries, achieving 75% success rate (15/20 queries). Failed queries primarily involve advanced CTEs and complex window functions, indicating some limitations with modern SQL analytical patterns. When successful, performance is generally slower than purpose-built OLAP systems, with total execution time of 121.21 seconds for successful queries.
+**MariaDB ColumnStore**: Shows moderate compatibility challenges with complex analytical queries, achieving 75% success rate (15/20 queries). Failed queries primarily involve advanced CTEs and complex window functions, indicating some limitations with modern SQL analytical patterns. When successful, performance is generally slower than purpose-built OLAP systems, with total execution time of 121.21 seconds for successful queries. Despite the fastest data load time (0m 39s), query compatibility and execution speed lag behind OLAP-focused systems.
 
-**Apache Doris**: Demonstrates excellent compatibility with 100% query success rate and balanced performance characteristics across all query complexity levels, making it suitable for comprehensive analytical workloads.
+**Apache Doris**: Demonstrates excellent compatibility with 100% query success rate and balanced performance characteristics across all query complexity levels, making it suitable for comprehensive analytical workloads. Data load speed is moderate (2m 54s).
 
 ### Performance Summary
 
-| Database | Total Time | Success Rate | Queries Failed | Best For |
-|----------|------------|--------------|----------------|----------|
-| ClickHouse | 6.38s | 100% (20/20) | None | High-performance analytics |
-| StarRocks | 6.75s | 100% (20/20) | None | Consistent performance |
-| Apache Doris | ~11.5s | 100% (20/20) | None | Balanced workloads |
-| TiDB/TiFlash | 312.78s | 100% (20/20) | None | HTAP scenarios |
-| MariaDB ColumnStore | 121.21s* | 75% (15/20) | 1,3,4,17,19 | Legacy integration |
+| Database | Total Time | Success Rate | Queries Failed | Data Load Time | Best For |
+|----------|------------|--------------|----------------|---------------|----------|
+| ClickHouse | 6.38s | 100% (20/20) | None | 0m 57s | High-performance analytics |
+| StarRocks | 6.75s | 100% (20/20) | None | 1m 40s | Consistent performance |
+| Apache Doris | ~11.5s | 100% (20/20) | None | 2m 54s | Balanced workloads |
+| TiDB/TiFlash | 312.78s | 100% (20/20) | None | 12m 15s | HTAP scenarios |
+| MariaDB ColumnStore | 121.21s* | 75% (15/20) | 1,3,4,17,19 | 0m 39s | Legacy integration |
 
 *Total time for successful queries only
 
@@ -469,7 +491,7 @@ A: Absolutely! Add your queries to the `queries/sql/` directory and they'll be a
 
 For additional context and comparison, consider these established analytical benchmarks:
 
-- **[TPC-H](http://www.tpc.org/tpch/)**: Industry-standard decision support benchmark
+- **[TPC-H](http://www.tpc.org/tpc-h/)**: Industry-standard decision support benchmark
 - **[TPC-DS](http://www.tpc.org/tpcds/)**: Decision support benchmark with complex queries
 - **[ClickBench](https://benchmark.clickhouse.com/)**: ClickHouse-focused analytical benchmark
 - **[Apache Arrow DataFusion Benchmarks](https://github.com/apache/arrow-datafusion/tree/master/benchmarks)**: Modern analytical engine benchmarks
