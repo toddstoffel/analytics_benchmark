@@ -1,6 +1,6 @@
 services:
   fe:
-    image: apache/doris:fe-3.0.4
+    image: apache/doris:fe-3.0.6.1
     hostname: fe
     container_name: doris_fe
     environment:
@@ -15,7 +15,7 @@ services:
     restart: unless-stopped
 
   be:
-    image: apache/doris:be-3.0.4
+    image: apache/doris:be-3.0.6.1
     hostname: be
     container_name: doris_be
     environment:
