@@ -96,7 +96,7 @@ This star schema design reflects typical data warehouse patterns, enabling reali
 
 **Tested Versions:**
 - ClickHouse v23.8+
-- Apache Doris v2.0+
+- Apache Doris v3.0+
 - StarRocks v3.0+
 - TiDB v7.0+ (with TiFlash)
 - MariaDB ColumnStore v23.02.4+
