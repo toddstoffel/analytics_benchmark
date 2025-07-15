@@ -103,9 +103,9 @@ This star schema design reflects typical data warehouse patterns, enabling reali
 
 ### Purpose-Built OLAP Systems
 
-- **Apache Doris**: Open-source MPP analytical database designed for real-time analytics
-- **ClickHouse**: Columnar database optimized for analytical workloads and time-series data
-- **StarRocks**: High-performance analytical database with vectorized execution
+- **Apache Doris**: Open-source MPP analytical database with vectorized execution engine, designed for real-time analytics and high-performance OLAP workloads
+- **ClickHouse**: Open-source MPP columnar analytical database with vectorized execution, optimized for real-time analytics, time-series data, and high-performance OLAP workloads  
+- **StarRocks**: Open-source MPP analytical database with vectorized execution engine, designed for real-time analytics and high-performance OLAP workloads
 
 ### Hybrid and Specialized Systems
 
