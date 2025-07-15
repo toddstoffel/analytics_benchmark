@@ -403,7 +403,7 @@ The following table shows execution times for each query in the benchmark suite:
 
 **MariaDB ColumnStore**: Shows moderate compatibility challenges with complex analytical queries, achieving 75% success rate (15/20 queries). Failed queries primarily involve advanced CTEs and complex window functions, indicating some limitations with modern SQL analytical patterns. When successful, performance is generally slower than purpose-built OLAP systems, with total execution time of 121.21 sec for successful queries. Despite the fastest data load time (39.00 sec), query compatibility and execution speed lag behind OLAP-focused systems.
 
-**Apache Doris**: Demonstrates excellent compatibility with 100% query success rate and balanced performance characteristics across all query complexity levels, making it suitable for comprehensive analytical workloads. Data load speed is moderate (174.00 sec).
+**Apache Doris**: Demonstrates excellent compatibility with 100% query success rate and balanced performance characteristics across all query complexity levels, making it suitable for comprehensive analytical workloads. Data load speed is competitive (95.00 sec).
 
 ### Performance Summary
 
@@ -411,7 +411,7 @@ The following table shows execution times for each query in the benchmark suite:
 |--------------|------------|-----------|------------|------------|------------------------|
 | ClickHouse    | 6.38 sec   | 100%      | None       | 57.00 sec  | High-perf analytics    |
 | StarRocks     | 6.75 sec   | 100%      | None       | 100.00 sec | Consistent performance |
-| Doris         | 11.50 sec  | 100%      | None       | 174.00 sec | Balanced workloads     |
+| Doris         | 11.50 sec  | 100%      | None       | 95.00 sec  | Balanced workloads     |
 | TiDB/TiFlash  | 312.78 sec | 100%      | None       | 735.00 sec | HTAP scenarios         |
 | ColumnStore   | 121.21 sec | 75%       | 1,3,4,17,19| 39.00 sec  | Legacy integration     |
 
