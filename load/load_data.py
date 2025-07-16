@@ -649,7 +649,7 @@ class DorisLoader(DatabaseLoader):
               `iata_code` varchar(2),
               `airline` varchar(30)
             ) DUPLICATE KEY(`iata_code`)
-            DISTRIBUTED BY HASH(`iata_code`) BUCKETS 1
+            DISTRIBUTED BY HASH(`iata_code`) BUCKETS AUTO
             PROPERTIES (
               "replication_num" = "1"
             )""",
@@ -662,7 +662,7 @@ class DorisLoader(DatabaseLoader):
               `latitude` decimal(11,4),
               `longitude` decimal(11,4)
             ) DUPLICATE KEY(`iata_code`)
-            DISTRIBUTED BY HASH(`iata_code`) BUCKETS 1
+            DISTRIBUTED BY HASH(`iata_code`) BUCKETS AUTO
             PROPERTIES (
               "replication_num" = "1"
             )""",
@@ -700,7 +700,7 @@ class DorisLoader(DatabaseLoader):
               `security_delay` decimal(13,2),
               `late_aircraft_delay` decimal(13,2)
             ) DUPLICATE KEY(`year`, `month`, `day`, `day_of_week`)
-            DISTRIBUTED BY HASH(`fl_date`) BUCKETS 1
+            DISTRIBUTED BY HASH(`fl_date`) BUCKETS AUTO
             PROPERTIES (
               "replication_num" = "1"
             )"""
