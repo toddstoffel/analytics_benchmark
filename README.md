@@ -47,9 +47,9 @@ This benchmark evaluates databases that can be deployed in your own infrastructu
 ### Quick Results Summary
 
 **Top Performers:**
-- 🥇 **ClickHouse**: 6.38s total, 100% success rate - Best overall performance
-- 🥈 **StarRocks**: 6.75s total, 100% success rate - Excellent consistency  
-- 🥉 **Apache Doris**: 7.65s total, 100% success rate - Balanced performance across all queries
+- 🥇 **ClickHouse**: 6.41s total, 100% success rate - Best overall performance
+- 🥈 **StarRocks**: 6.76s total, 100% success rate - Excellent consistency  
+- 🥉 **Apache Doris**: 7.66s total, 100% success rate - Balanced performance across all queries
 
 **Key Findings:**
 - ClickHouse and StarRocks dominate performance benchmarks
@@ -409,9 +409,9 @@ The following table shows execution times for each query in the benchmark suite:
 
 | Database      | Query Time  | Success   | Failed      | Load Time   | Best For               |
 |--------------|------------|-----------|------------|------------|------------------------|
-| ClickHouse    | 6.38 sec   | 100%      | None       | 57.00 sec  | High-perf analytics    |
-| StarRocks     | 6.75 sec   | 100%      | None       | 100.00 sec | Consistent performance |
-| Doris         | 7.65 sec   | 100%      | None       | 85.00 sec  | Balanced workloads     |
+| ClickHouse    | 6.41 sec   | 100%      | None       | 57.00 sec  | High-perf analytics    |
+| StarRocks     | 6.76 sec   | 100%      | None       | 100.00 sec | Consistent performance |
+| Doris         | 7.66 sec   | 100%      | None       | 85.00 sec  | Balanced workloads     |
 | TiDB/TiFlash  | 312.78 sec | 100%      | None       | 735.00 sec | HTAP scenarios         |
 | ColumnStore   | 121.21 sec | 75%       | 1,3,4,17,19| 39.00 sec  | Legacy integration     |
 
