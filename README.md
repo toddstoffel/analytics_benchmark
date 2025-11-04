@@ -347,7 +347,7 @@ The following table shows data ingestion performance for the complete dataset (3
 | ClickHouse    | 🟢 57.00 sec  | 694,723   | ✅ Success | Native CSV, columnar |
 | Doris         | 🟢 85.00 sec  | 447,940   | ✅ Success | Stream Load, BE warmup  |
 | StarRocks     | 🟢 100.00 sec | 379,777   | ✅ Success | Vectorized ingest    |
-| TiDB/TiFlash  | 🔴 735.00 sec | 51,563    | ✅ Success | Lightning, replica   |
+| TiDB/TiFlash  | 🟡 160.00 sec | 238,026   | ✅ Success | Lightning, replica   |
 | ColumnStore   | 🟢 39.00 sec  | 1,109,264 | ✅ Success | cpimport, conversion |
 
 ### Query Execution Performance
