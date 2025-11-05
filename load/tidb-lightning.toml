@@ -15,11 +15,12 @@ sorted-kv-dir = "/tmp/tidb_sort"
 data-source-dir = "./csv"
 batch-import-ratio = 1.2
 read-block-size = 4194304
+strict-format = true
 
 [mydumper.csv]
 separator = ','
 delimiter = '"'
-terminator = ''
+terminator = "\n"
 header = false
 not-null = false
 null = '\N'
