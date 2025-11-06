@@ -408,6 +408,9 @@ class TiDBLoader(DatabaseLoader):
         self.logger.info("Creating TiDB database and tables...")
         
         sql_commands = [
+            # Set analyze options for better statistics collection for OLAP workloads
+            # Ref: https://docs.pingcap.com/tidb/stable/system-variables/#tidb_analyze_column_options-new-in-v830
+            f"SET GLOBAL tidb_analyze_column_options = 'all'",
             f"DROP DATABASE IF EXISTS `{self.config.database}`",
             f"CREATE DATABASE `{self.config.database}`",
             f"USE `{self.config.database}`",
