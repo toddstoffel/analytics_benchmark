@@ -208,6 +208,9 @@ python3 run_benchmarks.py --database columnstore
 #### TiDB with TiFlash
 
 ```bash
+# Update TiUP to latest version
+tiup update --all
+
 # Start TiDB using TiUP (note: TiDB uses TiUP instead of Docker for optimal performance)
 tiup playground
 
@@ -347,7 +350,7 @@ The following table shows data ingestion performance for the complete dataset (3
 | ClickHouse    | 🟢 57.00 sec  | 694,723   | ✅ Success | Native CSV, columnar |
 | Doris         | 🟢 85.00 sec  | 447,940   | ✅ Success | Stream Load, BE warmup  |
 | StarRocks     | 🟢 100.00 sec | 379,777   | ✅ Success | Vectorized ingest    |
-| TiDB/TiFlash  | 🟡 160.00 sec | 238,026   | ✅ Success | Lightning, replica   |
+| TiDB/TiFlash  | 🟡 159.31 sec | 239,080   | ✅ Success | Lightning, all tables replica |
 | ColumnStore   | 🟢 39.00 sec  | 1,109,264 | ✅ Success | cpimport, conversion |
 
 ### Query Execution Performance
@@ -363,26 +366,26 @@ The following table shows execution times for each query in the benchmark suite:
 
 | Query | ClickHouse | ColumnStore | Doris | StarRocks | TiDB |
 |-------|------------|-------------|-------|-----------|------|
-| [1](queries/sql/1.sql) | 🟢 0.13 sec | ❌ Error | 🟢 0.19 sec | 🟢 0.13 sec | 🟡 0.53 sec |
-| [2](queries/sql/2.sql) | 🟡 0.54 sec | 🟠 6.35 sec | 🟡 0.53 sec | 🟡 0.99 sec | 🟡 0.94 sec |
-| [3](queries/sql/3.sql) | 🟢 0.05 sec | ❌ Error | 🟢 0.05 sec | 🟢 0.08 sec | 🟢 0.12 sec |
-| [4](queries/sql/4.sql) | 🟢 0.01 sec | ❌ Error | 🟢 0.02 sec | 🟢 0.05 sec | 🟢 0.06 sec |
-| [5](queries/sql/5.sql) | 🟢 0.10 sec | 🟡 0.99 sec | 🟢 0.06 sec | 🟢 0.08 sec | 🟢 0.37 sec |
-| [6](queries/sql/6.sql) | 🟡 0.66 sec | 🔴 15.03 sec | 🟡 0.88 sec | 🟡 0.57 sec | 🟠 3.72 sec |
-| [7](queries/sql/7.sql) | 🟡 0.63 sec | 🔴 14.40 sec | 🟡 0.76 sec | 🟢 0.46 sec | 🟠 3.42 sec |
-| [8](queries/sql/8.sql) | 🟢 0.06 sec | 🟡 1.96 sec | 🟢 0.11 sec | 🟢 0.08 sec | 🟢 0.40 sec |
-| [9](queries/sql/9.sql) | 🟡 0.68 sec | 🔴 14.27 sec | 🟡 0.77 sec | 🟢 0.42 sec | 🟠 3.42 sec |
-| [10](queries/sql/10.sql) | 🟢 0.09 sec | 🟠 2.57 sec | 🟢 0.14 sec | 🟢 0.11 sec | 🟢 0.46 sec |
-| [11](queries/sql/11.sql) | 🟢 0.22 sec | 🟠 4.04 sec | 🟢 0.28 sec | 🟢 0.19 sec | 🟡 0.99 sec |
-| [12](queries/sql/12.sql) | 🟡 0.81 sec | 🔴 20.81 sec | 🟡 1.07 sec | 🟡 0.62 sec | 🟠 5.31 sec |
-| [13](queries/sql/13.sql) | 🟢 0.25 sec | 🟠 4.74 sec | 🟢 0.31 sec | 🟢 0.19 sec | 🟠 2.46 sec |
-| [14](queries/sql/14.sql) | 🟢 0.49 sec | 🟠 9.58 sec | 🟢 0.44 sec | 🟢 0.36 sec | 🔴 74.33 sec |
-| [15](queries/sql/15.sql) | 🟢 0.40 sec | 🟠 9.05 sec | 🟢 0.48 sec | 🟢 0.27 sec | 🔴 147.88 sec |
-| [16](queries/sql/16.sql) | 🟢 0.24 sec | 🟠 6.32 sec | 🟢 0.33 sec | 🟡 0.90 sec | 🟠 3.44 sec |
-| [17](queries/sql/17.sql) | 🟢 0.16 sec | ❌ Error | 🟢 0.16 sec | 🟢 0.14 sec | 🟢 0.22 sec |
-| [18](queries/sql/18.sql) | 🟢 0.33 sec | 🟠 5.74 sec | 🟢 0.40 sec | 🟡 0.66 sec | 🟠 2.89 sec |
-| [19](queries/sql/19.sql) | 🟢 0.31 sec | ❌ Error | 🟢 0.38 sec | 🟢 0.27 sec | 🔴 59.05 sec |
-| [20](queries/sql/20.sql) | 🟢 0.25 sec | 🟠 5.36 sec | 🟢 0.30 sec | 🟢 0.19 sec | 🟠 2.77 sec |
+| [1](queries/sql/1.sql) | 🟢 0.13 sec | ❌ Error | 🟢 0.19 sec | 🟢 0.13 sec | � 0.13 sec |
+| [2](queries/sql/2.sql) | 🟡 0.54 sec | 🟠 6.35 sec | 🟡 0.53 sec | 🟡 0.99 sec | � 0.43 sec |
+| [3](queries/sql/3.sql) | 🟢 0.05 sec | ❌ Error | 🟢 0.05 sec | 🟢 0.08 sec | 🟢 0.08 sec |
+| [4](queries/sql/4.sql) | 🟢 0.01 sec | ❌ Error | 🟢 0.02 sec | 🟢 0.05 sec | 🟢 0.05 sec |
+| [5](queries/sql/5.sql) | 🟢 0.10 sec | 🟡 0.99 sec | 🟢 0.06 sec | 🟢 0.08 sec | 🟢 0.18 sec |
+| [6](queries/sql/6.sql) | 🟡 0.66 sec | 🔴 15.03 sec | 🟡 0.88 sec | 🟡 0.57 sec | � 0.75 sec |
+| [7](queries/sql/7.sql) | 🟡 0.63 sec | 🔴 14.40 sec | 🟡 0.76 sec | 🟢 0.46 sec | � 0.71 sec |
+| [8](queries/sql/8.sql) | 🟢 0.06 sec | 🟡 1.96 sec | 🟢 0.11 sec | 🟢 0.08 sec | 🟢 0.12 sec |
+| [9](queries/sql/9.sql) | 🟡 0.68 sec | 🔴 14.27 sec | 🟡 0.77 sec | 🟢 0.42 sec | � 0.69 sec |
+| [10](queries/sql/10.sql) | 🟢 0.09 sec | 🟠 2.57 sec | 🟢 0.14 sec | 🟢 0.11 sec | 🟢 0.15 sec |
+| [11](queries/sql/11.sql) | 🟢 0.22 sec | 🟠 4.04 sec | 🟢 0.28 sec | 🟢 0.19 sec | � 0.31 sec |
+| [12](queries/sql/12.sql) | 🟡 0.81 sec | 🔴 20.81 sec | 🟡 1.07 sec | 🟡 0.62 sec | � 0.96 sec |
+| [13](queries/sql/13.sql) | 🟢 0.25 sec | 🟠 4.74 sec | 🟢 0.31 sec | 🟢 0.19 sec | � 1.18 sec |
+| [14](queries/sql/14.sql) | 🟢 0.49 sec | 🟠 9.58 sec | 🟢 0.44 sec | 🟢 0.36 sec | 🔴 44.99 sec |
+| [15](queries/sql/15.sql) | 🟢 0.40 sec | 🟠 9.05 sec | 🟢 0.48 sec | 🟢 0.27 sec | � 3.43 sec |
+| [16](queries/sql/16.sql) | 🟢 0.24 sec | 🟠 6.32 sec | 🟢 0.33 sec | 🟡 0.90 sec | � 0.34 sec |
+| [17](queries/sql/17.sql) | 🟢 0.16 sec | ❌ Error | 🟢 0.16 sec | 🟢 0.14 sec | 🟢 0.18 sec |
+| [18](queries/sql/18.sql) | 🟢 0.33 sec | 🟠 5.74 sec | 🟢 0.40 sec | 🟡 0.66 sec | � 0.42 sec |
+| [19](queries/sql/19.sql) | 🟢 0.31 sec | ❌ Error | 🟢 0.38 sec | 🟢 0.27 sec | � 1.63 sec |
+| [20](queries/sql/20.sql) | 🟢 0.25 sec | 🟠 5.36 sec | 🟢 0.30 sec | 🟢 0.19 sec | � 0.43 sec |
 
 ## Key Observations
 
@@ -399,7 +402,7 @@ The following table shows execution times for each query in the benchmark suite:
 
 **StarRocks Analysis**: Delivers exceptional performance with perfect 100% query success rate (20/20 queries) and highly competitive total execution time (6.75 sec). Shows excellent vectorized execution capabilities and strong optimization for both simple and complex analytical patterns, making it a strong contender for high-performance analytical workloads. Data load speed is also competitive (100.00 sec).
 
-**TiDB/TiFlash Analysis**: Achieves 100% query success rate (20/20 queries) with total execution time of 312.78 sec. While TiDB shows slower analytical performance compared to purpose-built OLAP systems, particularly on complex queries (queries 14, 15, and 19), it provides the unique advantage of unified HTAP capabilities—enabling transactional and analytical workloads on the same dataset without ETL processes. Performance varies significantly by query complexity, with simple queries executing competitively but complex analytical patterns taking substantially longer. Data load speed for TiDB/TiFlash is more (160.00 sec) than other engines, reflecting the overhead of TiDB Lightning bulk import and TiFlash replica creation. This is a tradeoff for unified HTAP capabilities and strong transactional consistency. TiDB/TiFlash remains a viable choice for organizations prioritizing hybrid transactional/analytical workloads and seamless data integration, but is not recommended for time-sensitive bulk analytical ingestion.
+**TiDB/TiFlash Analysis**: Achieves 100% query success rate (20/20 queries) with total execution time of 57.16 sec. TiDB shows significantly improved analytical performance with TiFlash replicas enabled across all tables, making it much more competitive with purpose-built OLAP systems. Most queries now execute in sub-second timeframes, with only complex analytical queries (queries 14, 15) showing longer execution times. The system provides the unique advantage of unified HTAP capabilities—enabling transactional and analytical workloads on the same dataset without ETL processes. Performance varies by query complexity, with simple to moderate queries executing very competitively and only the most complex analytical patterns taking longer. Data load speed (159.31 sec) reflects the overhead of TiDB Lightning bulk import and TiFlash replica creation across all three tables. TiDB/TiFlash is now a strong choice for organizations prioritizing hybrid transactional/analytical workloads with substantially improved analytical query performance.
 
 **MariaDB ColumnStore**: Shows moderate compatibility challenges with complex analytical queries, achieving 75% success rate (15/20 queries). Failed queries primarily involve advanced CTEs and complex window functions, indicating some limitations with modern SQL analytical patterns. When successful, performance is generally slower than purpose-built OLAP systems, with total execution time of 121.21 sec for successful queries. Despite the fastest data load time (39.00 sec), query compatibility and execution speed lag behind OLAP-focused systems.
 
@@ -412,7 +415,7 @@ The following table shows execution times for each query in the benchmark suite:
 | ClickHouse    | 6.41 sec   | 100%      | None       | 57.00 sec  | High-perf analytics    |
 | StarRocks     | 6.76 sec   | 100%      | None       | 100.00 sec | Consistent performance |
 | Doris         | 7.66 sec   | 100%      | None       | 85.00 sec  | Balanced workloads     |
-| TiDB/TiFlash  | 312.78 sec | 100%      | None       | 160.00 sec | HTAP scenarios         |
+| TiDB/TiFlash  | 57.16 sec  | 100%      | None       | 159.31 sec | HTAP scenarios         |
 | ColumnStore   | 121.21 sec | 75%       | 1,3,4,17,19| 39.00 sec  | Legacy integration     |
 
 *Query Time: total for successful queries only

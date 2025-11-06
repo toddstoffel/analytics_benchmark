@@ -529,12 +529,17 @@ class TiDBLoader(DatabaseLoader):
             os.chdir(original_cwd)
     
     def set_tiflash_replica(self) -> None:
+        tables = ['airlines', 'airports', 'flights']
+        
         try:
             with self._get_connection() as connection:
                 cursor = connection.cursor()
-                self.logger.info("Setting TiFlash replica for flights table...")
-                cursor.execute(f"ALTER TABLE {self.config.database}.flights SET TIFLASH REPLICA 1;")
-                self.logger.info("✅ TiFlash replica set successfully")
+                
+                for table in tables:
+                    self.logger.info(f"Setting TiFlash replica for {table} table...")
+                    cursor.execute(f"ALTER TABLE {self.config.database}.{table} SET TIFLASH REPLICA 1;")
+                    self.logger.info(f"✅ TiFlash replica set successfully for {table}")
+                
                 cursor.close()
         except Exception as e:
             self.logger.error(f"Error setting TiFlash replica: {e}")
