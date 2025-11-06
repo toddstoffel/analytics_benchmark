@@ -52,9 +52,10 @@ This benchmark evaluates databases that can be deployed in your own infrastructu
 - 🥉 **Apache Doris**: 7.66s total, 100% success rate - Balanced performance across all queries
 
 **Key Findings:**
-- ClickHouse and StarRocks dominate performance benchmarks
-- TiDB/TiFlash: 12m 15s load time, 100% query success rate, but much slower data ingestion and analytical performance compared to OLAP-focused engines
-- MariaDB ColumnStore shows compatibility issues with complex queries, but has the fastest data load time
+- ClickHouse and StarRocks dominate performance benchmarks with sub-7 second total execution times
+- TiDB/TiFlash: 2m 39s load time, 100% query success rate, significantly improved analytical performance with TiFlash replicas on all tables
+- Apache Doris delivers balanced performance with excellent compatibility across all query types
+- MariaDB ColumnStore shows compatibility issues with complex queries, though it has the fastest data load time
 - Real-world flight data (38M+ records) provides realistic testing scenarios
 
 ### OLAP vs OLTP
@@ -332,7 +333,7 @@ FROM monthly_perf;
 
 ## Performance Results
 
-> **Last Updated**: July 2025 | **Dataset**: 38,083,735 flight records | **Test Environment**: MacBook Pro M1 Pro
+> **Last Updated**: November 2025 | **Dataset**: 38,083,735 flight records | **Test Environment**: MacBook Pro M1 Pro
 
 
 ### Data Load Performance
@@ -392,15 +393,16 @@ The following table shows execution times for each query in the benchmark suite:
 ### Performance Leaders
 
 - **ClickHouse**: Exceptional performance across all query types with 100% success rate and consistently fast execution times. Particularly strong for simple aggregations and filtering operations, with excellent scalability to complex analytical queries.
-- **StarRocks**: Outstanding performance with 100% query success rate and highly competitive execution times. Demonstrates excellent consistency across different query patterns with total execution time of 6.75 seconds.
-- **Apache Doris**: Balanced performance characteristics suitable for general analytical workloads with full query compatibility
-- Data load performance varies widely: MariaDB ColumnStore and ClickHouse are fastest for ingestion, while TiDB/TiFlash is the slowest due to its architecture.
+- **StarRocks**: Outstanding performance with 100% query success rate and highly competitive execution times. Demonstrates excellent consistency across different query patterns with total execution time of 6.76 seconds.
+- **Apache Doris**: Balanced performance characteristics suitable for general analytical workloads with full query compatibility and competitive 7.66 second total execution time.
+
+**Data Loading Performance**: MariaDB ColumnStore leads in bulk ingestion speed (39 seconds), followed by ClickHouse (57 seconds) and Doris (85 seconds). TiDB/TiFlash requires more time (159 seconds) due to Lightning bulk import and TiFlash replica creation across all tables.
 
 ### System-Specific Insights
 
-**ClickHouse Analysis**: Demonstrates outstanding performance with perfect 100% query success rate (20/20 queries) and fastest overall execution time (6.38 sec). Shows excellent optimization for both simple and complex analytical patterns, making it ideal for high-performance analytical workloads. Also among the fastest for bulk data ingestion (57.00 sec).
+**ClickHouse Analysis**: Demonstrates outstanding performance with perfect 100% query success rate (20/20 queries) and fastest overall execution time (6.41 sec). Shows excellent optimization for both simple and complex analytical patterns, making it ideal for high-performance analytical workloads. Also among the fastest for bulk data ingestion (57.00 sec).
 
-**StarRocks Analysis**: Delivers exceptional performance with perfect 100% query success rate (20/20 queries) and highly competitive total execution time (6.75 sec). Shows excellent vectorized execution capabilities and strong optimization for both simple and complex analytical patterns, making it a strong contender for high-performance analytical workloads. Data load speed is also competitive (100.00 sec).
+**StarRocks Analysis**: Delivers exceptional performance with perfect 100% query success rate (20/20 queries) and highly competitive total execution time (6.76 sec). Shows excellent vectorized execution capabilities and strong optimization for both simple and complex analytical patterns, making it a strong contender for high-performance analytical workloads. Data load speed is also competitive (100.00 sec).
 
 **TiDB/TiFlash Analysis**: Achieves 100% query success rate (20/20 queries) with total execution time of 57.16 sec. TiDB shows significantly improved analytical performance with TiFlash replicas enabled across all tables, making it much more competitive with purpose-built OLAP systems. Most queries now execute in sub-second timeframes, with only complex analytical queries (queries 14, 15) showing longer execution times. The system provides the unique advantage of unified HTAP capabilities—enabling transactional and analytical workloads on the same dataset without ETL processes. Performance varies by query complexity, with simple to moderate queries executing very competitively and only the most complex analytical patterns taking longer. Data load speed (159.31 sec) reflects the overhead of TiDB Lightning bulk import and TiFlash replica creation across all three tables. TiDB/TiFlash is now a strong choice for organizations prioritizing hybrid transactional/analytical workloads with substantially improved analytical query performance.
 
@@ -468,8 +470,8 @@ A: Yes! The benchmark is designed to be portable. Results will vary based on you
 **Q: How often are these benchmarks updated?**
 A: We aim to update benchmarks quarterly or when major database versions are released. Check the commit history for the latest updates.
 
-**Q: Why is TiDB slower than other databases?**
-A: TiDB is primarily an HTAP system designed for transactional workloads. Its analytical performance via TiFlash is slower but offers the unique advantage of unified transactional and analytical processing.
+**Q: How does TiDB compare to purpose-built OLAP systems?**
+A: TiDB is primarily an HTAP system designed for transactional workloads. While its analytical performance via TiFlash is slower than purpose-built OLAP systems like ClickHouse and StarRocks, it offers the unique advantage of unified transactional and analytical processing on the same dataset without ETL. With TiFlash replicas enabled on all tables, TiDB now delivers competitive analytical performance for organizations prioritizing hybrid workloads.
 
 **Q: Can I add my own queries to the benchmark?**
 A: Absolutely! Add your queries to the `queries/sql/` directory and they'll be automatically included in the benchmark run.
