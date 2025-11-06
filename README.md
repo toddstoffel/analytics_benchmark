@@ -366,26 +366,26 @@ The following table shows execution times for each query in the benchmark suite:
 
 | Query | ClickHouse | ColumnStore | Doris | StarRocks | TiDB |
 |-------|------------|-------------|-------|-----------|------|
-| [1](queries/sql/1.sql) | 🟢 0.13 sec | ❌ Error | 🟢 0.19 sec | 🟢 0.13 sec | � 0.13 sec |
-| [2](queries/sql/2.sql) | 🟡 0.54 sec | 🟠 6.35 sec | 🟡 0.53 sec | 🟡 0.99 sec | � 0.43 sec |
+| [1](queries/sql/1.sql) | 🟢 0.13 sec | ❌ Error | 🟢 0.19 sec | 🟢 0.13 sec | 🟢 0.13 sec |
+| [2](queries/sql/2.sql) | 🟡 0.54 sec | 🟠 6.35 sec | 🟡 0.53 sec | 🟡 0.99 sec | 🟢 0.43 sec |
 | [3](queries/sql/3.sql) | 🟢 0.05 sec | ❌ Error | 🟢 0.05 sec | 🟢 0.08 sec | 🟢 0.08 sec |
 | [4](queries/sql/4.sql) | 🟢 0.01 sec | ❌ Error | 🟢 0.02 sec | 🟢 0.05 sec | 🟢 0.05 sec |
 | [5](queries/sql/5.sql) | 🟢 0.10 sec | 🟡 0.99 sec | 🟢 0.06 sec | 🟢 0.08 sec | 🟢 0.18 sec |
-| [6](queries/sql/6.sql) | 🟡 0.66 sec | 🔴 15.03 sec | 🟡 0.88 sec | 🟡 0.57 sec | � 0.75 sec |
-| [7](queries/sql/7.sql) | 🟡 0.63 sec | 🔴 14.40 sec | 🟡 0.76 sec | 🟢 0.46 sec | � 0.71 sec |
+| [6](queries/sql/6.sql) | 🟡 0.66 sec | 🔴 15.03 sec | 🟡 0.88 sec | 🟡 0.57 sec | 🟡 0.75 sec |
+| [7](queries/sql/7.sql) | 🟡 0.63 sec | 🔴 14.40 sec | 🟡 0.76 sec | 🟢 0.46 sec | 🟡 0.71 sec |
 | [8](queries/sql/8.sql) | 🟢 0.06 sec | 🟡 1.96 sec | 🟢 0.11 sec | 🟢 0.08 sec | 🟢 0.12 sec |
-| [9](queries/sql/9.sql) | 🟡 0.68 sec | 🔴 14.27 sec | 🟡 0.77 sec | 🟢 0.42 sec | � 0.69 sec |
+| [9](queries/sql/9.sql) | 🟡 0.68 sec | 🔴 14.27 sec | 🟡 0.77 sec | 🟢 0.42 sec | 🟡 0.69 sec |
 | [10](queries/sql/10.sql) | 🟢 0.09 sec | 🟠 2.57 sec | 🟢 0.14 sec | 🟢 0.11 sec | 🟢 0.15 sec |
-| [11](queries/sql/11.sql) | 🟢 0.22 sec | 🟠 4.04 sec | 🟢 0.28 sec | 🟢 0.19 sec | � 0.31 sec |
-| [12](queries/sql/12.sql) | 🟡 0.81 sec | 🔴 20.81 sec | 🟡 1.07 sec | 🟡 0.62 sec | � 0.96 sec |
-| [13](queries/sql/13.sql) | 🟢 0.25 sec | 🟠 4.74 sec | 🟢 0.31 sec | 🟢 0.19 sec | � 1.18 sec |
+| [11](queries/sql/11.sql) | 🟢 0.22 sec | 🟠 4.04 sec | 🟢 0.28 sec | 🟢 0.19 sec | 🟢 0.31 sec |
+| [12](queries/sql/12.sql) | 🟡 0.81 sec | 🔴 20.81 sec | 🟡 1.07 sec | 🟡 0.62 sec | 🟡 0.96 sec |
+| [13](queries/sql/13.sql) | 🟢 0.25 sec | 🟠 4.74 sec | 🟢 0.31 sec | 🟢 0.19 sec | 🟡 1.18 sec |
 | [14](queries/sql/14.sql) | 🟢 0.49 sec | 🟠 9.58 sec | 🟢 0.44 sec | 🟢 0.36 sec | 🔴 44.99 sec |
-| [15](queries/sql/15.sql) | 🟢 0.40 sec | 🟠 9.05 sec | 🟢 0.48 sec | 🟢 0.27 sec | � 3.43 sec |
-| [16](queries/sql/16.sql) | 🟢 0.24 sec | 🟠 6.32 sec | 🟢 0.33 sec | 🟡 0.90 sec | � 0.34 sec |
+| [15](queries/sql/15.sql) | 🟢 0.40 sec | 🟠 9.05 sec | 🟢 0.48 sec | 🟢 0.27 sec | 🟠 3.43 sec |
+| [16](queries/sql/16.sql) | 🟢 0.24 sec | 🟠 6.32 sec | 🟢 0.33 sec | 🟡 0.90 sec | 🟢 0.34 sec |
 | [17](queries/sql/17.sql) | 🟢 0.16 sec | ❌ Error | 🟢 0.16 sec | 🟢 0.14 sec | 🟢 0.18 sec |
-| [18](queries/sql/18.sql) | 🟢 0.33 sec | 🟠 5.74 sec | 🟢 0.40 sec | 🟡 0.66 sec | � 0.42 sec |
-| [19](queries/sql/19.sql) | 🟢 0.31 sec | ❌ Error | 🟢 0.38 sec | 🟢 0.27 sec | � 1.63 sec |
-| [20](queries/sql/20.sql) | 🟢 0.25 sec | 🟠 5.36 sec | 🟢 0.30 sec | 🟢 0.19 sec | � 0.43 sec |
+| [18](queries/sql/18.sql) | 🟢 0.33 sec | 🟠 5.74 sec | 🟢 0.40 sec | 🟡 0.66 sec | 🟢 0.42 sec |
+| [19](queries/sql/19.sql) | 🟢 0.31 sec | ❌ Error | 🟢 0.38 sec | 🟢 0.27 sec | 🟡 1.63 sec |
+| [20](queries/sql/20.sql) | 🟢 0.25 sec | 🟠 5.36 sec | 🟢 0.30 sec | 🟢 0.19 sec | 🟢 0.43 sec |
 
 ## Key Observations
 
